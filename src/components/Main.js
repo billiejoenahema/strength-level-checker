@@ -1,5 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import NavigationBar from './NavigationBar'
+import InputField from './InputField'
+import Archives from './Archives'
 
 const useStyles = makeStyles({
   root: {
@@ -14,8 +17,9 @@ const Main = ({ name }) => {
 
   return (
     <div className={classes.root} >
-      <h2>Main Component</h2>
-      <span>Name: {name}</span>
+      <NavigationBar />
+      <InputField name={name} />
+      <Archives />
     </div>
   )
 }
