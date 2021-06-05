@@ -31,16 +31,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SignIn = React.memo(({ setName }) => {
+const SignIn = React.memo(({ setName, setWeight }) => {
   const classes = useStyles()
   const [disabled, setDisabled] = useState(true)
   const [string, setString] = useState('')
-  const [isComposed, setIsComposed] = useState(false)
+  const [number, setNumber] = useState(0)
 
   useEffect(() => {
-    const isInputted = (string === '')
+    // 両項目を入力するまではボタンを無効化する
+    const isInputted = (string === '' || number === '')
     setDisabled(isInputted)
-  }, [string])
+  }, [string, number])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -54,21 +55,20 @@ const SignIn = React.memo(({ setName }) => {
             variant="outlined"
             margin="normal"
             required
-            fullWidth
             id="name"
             label="ニックネーム"
             name="name"
             autoFocus
             onChange={(e) => setString(e.target.value)}
-            onKeyDown={(e) => {
-              // 文字変換中でなければEnterを押した時にニックネーム確定
-              if (e.key === 'Enter' && !isComposed) {
-                setName(e.target.value)
-                e.preventDefault()
-              }
-            }}
-            onCompositionStart={() => setIsComposed(true)}
-            onCompositionEnd={() => setIsComposed(false)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            id="weight"
+            label="体重"
+            name="weight"
+            onChange={(e) => setNumber(e.target.value)}
           />
           <Button
             type="button"
@@ -79,6 +79,7 @@ const SignIn = React.memo(({ setName }) => {
             disabled={disabled}
             onClick={() => {
               setName(string)
+              setWeight(number)
             }}
           >
             はじめる
