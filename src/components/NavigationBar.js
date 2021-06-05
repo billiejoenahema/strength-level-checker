@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavigationBar = () => {
+const NavigationBar = ({ name }) => {
   const classes = useStyles()
 
   return (
@@ -32,8 +32,9 @@ const NavigationBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            React Firebase Chat
+            Strength Level Checker
           </Typography>
+          <span>{name}</span>
           <Button color="inherit">Exit</Button>
         </Toolbar>
       </AppBar>
