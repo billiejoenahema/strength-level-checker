@@ -21,6 +21,7 @@ const firebaseConfig = {
   appId: REACT_APP_FIREBASE_APP_ID,
   measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID
 }
+
 firebase.initializeApp(firebaseConfig)
 const database = firebase.database()
 export const reportRef = database.ref('report')
