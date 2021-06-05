@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { List, makeStyles } from '@material-ui/core'
-import ArchiveItem from './MessageItem'
-import { messagesRef } from '../firebase'
+import ArchiveItem from './ArchiveItem'
+import { reportRef } from '../firebase'
 
 
 const useStyles = makeStyles({
@@ -17,7 +17,7 @@ const Archives = () => {
   const classes = useStyles()
 
   useEffect(() => {
-    messagesRef
+    reportRef
       .orderByKey()
       .limitToLast(12)
       .on('value', (snapshot) => {
@@ -27,8 +27,8 @@ const Archives = () => {
 
         const entries = Object.entries(archives)
         const newArchives = entries.map((entry) => {
-          const [key, nameAndText] = entry
-          return { key, ...nameAndText }
+          const [key, report] = entry
+          return { key, ...report }
         })
         setArchives(newArchives)
       })
@@ -39,13 +39,12 @@ const Archives = () => {
   return (
     <List className={classes.root}>
       {
-        archives.map(({ key, name, text }, index) => {
+        archives.map(({ key, name, weight, exercise, useWeight, reps, maxWeight, strengthLevel }, index) => {
           const isLastItem = length === index + 1
           return (
             <ArchiveItem
               key={key}
               name={name}
-              text={text}
               isLastItem={isLastItem}
             />
           )
