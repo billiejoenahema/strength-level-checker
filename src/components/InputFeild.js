@@ -1,5 +1,13 @@
 import React, { useState, useRef } from 'react'
-import { Grid, Avatar, makeStyles } from '@material-ui/core'
+import {
+  Grid,
+  Avatar,
+  makeStyles,
+  FormControl,
+  InputLabel,
+  NativeSelect,
+  FormHelperText
+} from '@material-ui/core'
 import { gravatarPath } from '../gravatar'
 import MessageField from './MessageField'
 import MessageSubmitButton from './MessageSubmitButton'
@@ -12,7 +20,7 @@ const useStyles = makeStyles({
   },
 })
 
-const MessageInputField = ({ name, weight }) => {
+const InputField = ({ name, weight }) => {
   const inputEl = useRef(null)
   const [exercise, setExercise] = useState('')
   const [useWeight, setUseWeight] = useState('')
@@ -22,6 +30,10 @@ const MessageInputField = ({ name, weight }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
 
+  const selectExercise = (e) => {
+    setExercise(e)
+  }
+
   return (
     <div className={classes.root}>
       <Grid container>
@@ -29,12 +41,25 @@ const MessageInputField = ({ name, weight }) => {
           <Avatar src={avatarPath} />
         </Grid>
         <Grid item xs={2}>
-          <MessageField
-            inputEl={inputEl}
-            name={exercise}
-            setText={setExercise}
-            text={exercise}
-          />
+          <FormControl className={classes.formControl}>
+            <InputLabel shrink htmlFor="age-native-label-placeholder">
+              Exercise
+            </InputLabel>
+            <NativeSelect
+              value={exercise}
+              onChange={(e) => selectExercise(e.target.value)}
+              inputProps={{
+                name: 'exercise',
+                id: 'exercise-native-label-placeholder',
+              }}
+            >
+              <option value="benchPress">Bench Press</option>
+              <option value="deadLift">Dead Lift</option>
+              <option value="squat">Squat</option>
+              <option value="shoulderPress">Shoulder Press</option>
+            </NativeSelect>
+            <FormHelperText>Label + placeholder</FormHelperText>
+          </FormControl>
         </Grid>
         <Grid item xs={2}>
           <MessageField
@@ -53,20 +78,10 @@ const MessageInputField = ({ name, weight }) => {
           />
         </Grid>
         <Grid item xs={2}>
-          <MessageField
-            inputEl={inputEl}
-            name={maxWeight}
-            setText={setMaxWeight}
-            text={maxWeight}
-          />
+          MaxWeight: {maxWeight}
         </Grid>
         <Grid item xs={2}>
-          <MessageField
-            inputEl={inputEl}
-            name={strengthLevel}
-            setText={setStrengthLevel}
-            text={strengthLevel}
-          />
+          StrengthLevel: {strengthLevel}
         </Grid>
         <Grid item xs={1}>
           <MessageSubmitButton
@@ -79,4 +94,4 @@ const MessageInputField = ({ name, weight }) => {
   )
 }
 
-export default MessageInputField
+export default InputField
