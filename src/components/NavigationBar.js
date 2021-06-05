@@ -1,13 +1,14 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import MenuIcon from '@material-ui/icons/Menu'
 import {
   AppBar,
   Toolbar,
   Typography,
   Button,
   IconButton,
-  MenuIcon
-} from '@material-ui/core/AppBar'
+} from '@material-ui/core'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
