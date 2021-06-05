@@ -19,7 +19,7 @@ const Main = ({ name, weight }) => {
     <div className={classes.root} >
       <NavigationBar name={name} />
       <InputField name={name} weight={weight} />
-      <Archives />
+      {/* <Archives /> */}
     </div>
   )
 }

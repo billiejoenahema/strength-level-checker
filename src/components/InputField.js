@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Avatar,
@@ -6,56 +6,58 @@ import {
   FormControl,
   InputLabel,
   NativeSelect,
-  FormHelperText,
+  InputAdornment,
   TextField
 } from '@material-ui/core'
 import { gravatarPath } from '../gravatar'
 import ReportSubmitButton from './ReportSubmitButton'
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
-    gridRow: 2,
-    margin: '24px'
+    '& .MuiTextField-root': {
+      margin: theme.spacing(3),
+      width: '20ch',
+    },
   },
-})
+}))
 
 const InputField = ({ name, weight }) => {
-  const inputEl = useRef(null)
   const [exercise, setExercise] = useState('')
-  const [useWeight, setUseWeight] = useState('')
-  const [reps, setReps] = useState(1)
+  const [useWeight, setUseWeight] = useState(0)
+  const [reps, setReps] = useState(0)
   const [maxWeight, setMaxWeight] = useState(0)
   const [strengthLevel, setStrengthLevel] = useState('')
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
 
-  const selectExercise = (e) => {
-    setExercise(e)
-  }
+  useEffect(() => {
+    calcMaxWeightAndStrengthLevel()
+
+  }, [useWeight, reps])
+
   const calcMaxWeightAndStrengthLevel = () => {
-    // useWeightとrepsの両方入力するまでなにもしない
-    if (useWeight === 0 || reps === 0) return
+    if (reps === 0) return
     // useWeightとrepsを入力したらmaxWeightを計算してstrengthLevelを判定する
     // 計算式が冗長になるなら別ファイルにする
-    setMaxWeight()
-    setStrengthLevel()
+    setMaxWeight(100)
+    setStrengthLevel('Beginner')
   }
 
   return (
-    <div className={classes.root}>
+    <form className={classes.root} noValidate autoComplete="off">
       <Grid container>
         <Grid item xs={1}>
           <Avatar src={avatarPath} />
         </Grid>
-        <Grid item xs={2}>
-          <FormControl className={classes.formControl}>
-            <InputLabel shrink htmlFor="age-native-label-placeholder">
+        <Grid item xs={10}>
+          <FormControl margin="normal">
+            <InputLabel shrink htmlFor="exercise-native-label-placeholder">
               Exercise
             </InputLabel>
             <NativeSelect
               value={exercise}
-              onChange={(e) => selectExercise(e.target.value)}
+              onChange={(e) => setExercise(e.target.value)}
               inputProps={{
                 name: 'exercise',
                 id: 'exercise-native-label-placeholder',
@@ -66,40 +68,68 @@ const InputField = ({ name, weight }) => {
               <option value="squat">Squat</option>
               <option value="shoulderPress">Shoulder Press</option>
             </NativeSelect>
-            <FormHelperText>Label + placeholder</FormHelperText>
           </FormControl>
-        </Grid>
-        <Grid item xs={2}>
           <TextField
-            inputEl={inputEl}
-            name={useWeight}
-            setText={setUseWeight}
-            text={useWeight}
-            onChange={calcMaxWeightAndStrengthLevel}
+            required
+            label="Lifted"
+            id="standard-start-adornment"
+            margin="normal"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+            }}
+            onChange={(e) => setUseWeight(e.target.value)}
           />
-        </Grid>
-        <Grid item xs={2}>
+          <FormControl margin="normal">
+            <InputLabel shrink htmlFor="reps-native-label-placeholder">
+              Reps
+            </InputLabel>
+            <NativeSelect
+              value={reps}
+              onChange={(e) => setReps(e.target.value)}
+              inputProps={{
+                name: 'reps',
+                id: 'reps-native-label-placeholder',
+              }}
+            >
+              <option value={0}></option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+              <option value={6}>6</option>
+              <option value={7}>7</option>
+              <option value={8}>8</option>
+              <option value={9}>9</option>
+              <option value={10}>10</option>
+              <option value={11}>11</option>
+              <option value={12}>12</option>
+            </NativeSelect>
+          </FormControl>
           <TextField
-            inputEl={inputEl}
-            name={reps}
-            setText={setReps}
-            text={reps}
+            id="standard-read-only-input"
+            label="Max Weight ?"
+            value={maxWeight}
+            InputProps={{
+              readOnly: true,
+            }}
           />
-        </Grid>
-        <Grid item xs={2}>
-          MaxWeight: {maxWeight}
-        </Grid>
-        <Grid item xs={2}>
-          StrengthLevel: {strengthLevel}
+          <TextField
+            id="standard-read-only-input"
+            label="Strength Level ?"
+            value={strengthLevel}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
         </Grid>
         <Grid item xs={1}>
           <ReportSubmitButton
-            inputEl={inputEl}
             name={name}
             weight={weight} />
         </Grid>
       </Grid>
-    </div>
+    </form>
   )
 }
 
