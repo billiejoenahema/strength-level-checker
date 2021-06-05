@@ -6,11 +6,11 @@ import {
   FormControl,
   InputLabel,
   NativeSelect,
-  FormHelperText
+  FormHelperText,
+  TextField
 } from '@material-ui/core'
 import { gravatarPath } from '../gravatar'
-import MessageField from './MessageField'
-import MessageSubmitButton from './MessageSubmitButton'
+import ReportSubmitButton from './ReportSubmitButton'
 
 
 const useStyles = makeStyles({
@@ -32,6 +32,14 @@ const InputField = ({ name, weight }) => {
 
   const selectExercise = (e) => {
     setExercise(e)
+  }
+  const calcMaxWeightAndStrengthLevel = () => {
+    // useWeightとrepsの両方入力するまでなにもしない
+    if (useWeight === 0 || reps === 0) return
+    // useWeightとrepsを入力したらmaxWeightを計算してstrengthLevelを判定する
+    // 計算式が冗長になるなら別ファイルにする
+    setMaxWeight()
+    setStrengthLevel()
   }
 
   return (
@@ -62,15 +70,16 @@ const InputField = ({ name, weight }) => {
           </FormControl>
         </Grid>
         <Grid item xs={2}>
-          <MessageField
+          <TextField
             inputEl={inputEl}
             name={useWeight}
             setText={setUseWeight}
             text={useWeight}
+            onChange={calcMaxWeightAndStrengthLevel}
           />
         </Grid>
         <Grid item xs={2}>
-          <MessageField
+          <TextField
             inputEl={inputEl}
             name={reps}
             setText={setReps}
@@ -84,7 +93,7 @@ const InputField = ({ name, weight }) => {
           StrengthLevel: {strengthLevel}
         </Grid>
         <Grid item xs={1}>
-          <MessageSubmitButton
+          <ReportSubmitButton
             inputEl={inputEl}
             name={name}
             weight={weight} />
