@@ -5,7 +5,7 @@ import Main from './Main'
 import config from '../config.json'
 
 const App = () => {
-  const [name, setName] = useState('')
+  const [name, setName] = useState('Guest')
   const [weight, setWeight] = useState('')
   return (
     (name === '' && config.signInEnabled) ?
