@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   Grid,
   Avatar,
@@ -31,18 +31,16 @@ const InputField = ({ name, weight }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
 
-  useEffect(() => {
-    calcMaxWeightAndStrengthLevel()
+  const calcMaxWeightAndStrengthLevel = useCallback((reps) => {
 
-  }, [useWeight, reps])
-
-  const calcMaxWeightAndStrengthLevel = () => {
-    if (reps === 0) return
+    if (useWeight === 0 && reps === 0) return
     // useWeightとrepsを入力したらmaxWeightを計算してstrengthLevelを判定する
     // 計算式が冗長になるなら別ファイルにする
-    setMaxWeight(100)
+    const weight = useWeight + useWeight * reps / 40
+
+    setMaxWeight(weight)
     setStrengthLevel('Beginner')
-  }
+  })
 
   return (
     <form className={classes.root} noValidate autoComplete="off">
@@ -77,7 +75,7 @@ const InputField = ({ name, weight }) => {
             InputProps={{
               endAdornment: <InputAdornment position="end">kg</InputAdornment>,
             }}
-            onChange={(e) => setUseWeight(e.target.value)}
+            onChange={(e) => setUseWeight(Number(e.target.value))}
           />
           <FormControl margin="normal">
             <InputLabel shrink htmlFor="reps-native-label-placeholder">
@@ -85,7 +83,7 @@ const InputField = ({ name, weight }) => {
             </InputLabel>
             <NativeSelect
               value={reps}
-              onChange={(e) => setReps(e.target.value)}
+              onChange={(e) => calcMaxWeightAndStrengthLevel(e.target.value)}
               inputProps={{
                 name: 'reps',
                 id: 'reps-native-label-placeholder',
