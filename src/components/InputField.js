@@ -38,6 +38,7 @@ const InputField = ({ name, weight }) => {
     // 計算式が冗長になるなら別ファイルにする
     const weight = useWeight + useWeight * reps / 40
 
+    setReps(reps)
     setMaxWeight(weight)
     setStrengthLevel('Beginner')
   })
