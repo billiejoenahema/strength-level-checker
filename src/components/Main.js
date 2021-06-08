@@ -12,13 +12,13 @@ const useStyles = makeStyles({
   },
 })
 
-const Main = ({ name, weight }) => {
+const Main = ({ name, bodyWeight }) => {
   const classes = useStyles()
 
   return (
     <div className={classes.root} >
       <NavigationBar name={name} />
-      <InputField name={name} weight={weight} />
+      <InputField name={name} bodyWeight={bodyWeight} />
       {/* <Archives /> */}
     </div>
   )

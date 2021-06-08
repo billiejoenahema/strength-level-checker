@@ -6,11 +6,11 @@ import config from '../config.json'
 
 const App = () => {
   const [name, setName] = useState('Guest')
-  const [weight, setWeight] = useState('')
+  const [bodyWeight, setBodyWeight] = useState('')
   return (
     (name === '' && config.signInEnabled) ?
-      <SignIn setName={setName} setWeight={setWeight} />
-      : <Main name={name} weight={weight} />
+      <SignIn setName={setName} setBodyWeight={setBodyWeight} />
+      : <Main name={name} bodyWeight={bodyWeight} />
   )
 }
 

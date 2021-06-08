@@ -16,10 +16,16 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const MessageItem = React.memo(({ isLastItem, name, text }) => {
+const MessageItem = React.memo(({
+  isLastItem, // boolean
+  name, // string
+  bodyWeight, // number
+  report // array?
+}) => {
   const ref = useRef(null)
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
+  const [lift, reps, maxLift, strengthLevel] = report // number, number, number, string?
 
   useEffect(() => {
     if (isLastItem) {
@@ -41,7 +47,11 @@ const MessageItem = React.memo(({ isLastItem, name, text }) => {
             className={classes.inline}
             color="textPrimary"
           >
-            {text}
+            {bodyWeight}
+            {lift}
+            {reps}
+            {maxLift}
+            {strengthLevel}
           </Typography>
         }
       />

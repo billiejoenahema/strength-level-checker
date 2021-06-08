@@ -39,7 +39,7 @@ const Archives = () => {
   return (
     <List className={classes.root}>
       {
-        archives.map(({ key, name, weight, exercise, useWeight, reps, maxWeight, strengthLevel }, index) => {
+        archives.map(({ key, name, bodyWeight, exercise, lift, reps, maxLift, strengthLevel }, index) => {
           const isLastItem = length === index + 1
           return (
             <ArchiveItem

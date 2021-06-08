@@ -5,19 +5,19 @@ import { pushReport } from '../firebase'
 
 const ReportSubmitButton = ({
   name,
-  weight,
+  bodyWeight,
   exercise,
-  useWeight,
+  lift,
   reps,
-  maxWeight,
+  maxLift,
   strengthLevel
 }) => {
 
-  const isInputted = exercise && useWeight && reps
+  const isInputted = exercise && lift && reps
 
   return (
     <IconButton disabled={isInputted} onClick={() => {
-      pushReport({ name, weight, exercise, useWeight, reps, maxWeight, strengthLevel })
+      pushReport({ name, bodyWeight, exercise, lift, reps, maxLift, strengthLevel })
     }}>
       <SendIcon />
     </IconButton>

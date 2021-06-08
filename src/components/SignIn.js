@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SignIn = React.memo(({ setName, setWeight }) => {
+const SignIn = React.memo(({ setName, setBodyWeight }) => {
   const classes = useStyles()
   const [disabled, setDisabled] = useState(true)
   const [string, setString] = useState('')
@@ -65,10 +65,10 @@ const SignIn = React.memo(({ setName, setWeight }) => {
             variant="outlined"
             margin="normal"
             required
-            id="weight"
+            id="bodyWeight"
             label="体重"
-            name="weight"
-            onChange={(e) => setNumber(e.target.value)}
+            name="bodyWeight"
+            onChange={(e) => setNumber(Number(e.target.value))}
           />
           <Button
             type="button"
@@ -79,7 +79,7 @@ const SignIn = React.memo(({ setName, setWeight }) => {
             disabled={disabled}
             onClick={() => {
               setName(string)
-              setWeight(number)
+              setBodyWeight(number)
             }}
           >
             はじめる
