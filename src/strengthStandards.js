@@ -1,0 +1,21 @@
+export const benchPressTable = [
+  { weight: 50, levels: [23, 37, 55, 77, 102] },
+  { weight: 55, levels: [28, 43, 63, 86, 112] },
+  { weight: 60, levels: [33, 49, 70, 95, 121] },
+  { weight: 65, levels: [38, 55, 77, 103, 130] },
+  { weight: 70, levels: [43, 61, 84, 110, 139] },
+  { weight: 75, levels: [47, 67, 91, 118, 147] },
+  { weight: 80, levels: [52, 72, 97, 125, 155] },
+  { weight: 85, levels: [57, 78, 103, 132, 163] },
+  { weight: 90, levels: [61, 83, 109, 139, 171] },
+  { weight: 95, levels: [65, 88, 115, 145, 178] },
+  { weight: 100, levels: [70, 93, 121, 152, 185] },
+  { weight: 105, levels: [74, 98, 126, 158, 192] },
+  { weight: 110, levels: [78, 102, 131, 164, 199] },
+  { weight: 115, levels: [82, 107, 137, 170, 205] },
+  { weight: 120, levels: [86, 112, 142, 176, 211] },
+  { weight: 125, levels: [90, 116, 147, 181, 217] },
+  { weight: 130, levels: [94, 120, 152, 187, 223] },
+  { weight: 135, levels: [98, 125, 156, 192, 229] },
+  { weight: 140, levels: [101, 129, 161, 197, 235] }
+]
