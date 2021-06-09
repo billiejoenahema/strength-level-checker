@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 import { gravatarPath } from '../gravatar'
 import ReportSubmitButton from './ReportSubmitButton'
+import { benchPressTable } from '../strengthStandards'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,25 +23,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputField = ({ name, weight }) => {
-  const [exercise, setExercise] = useState('')
-  const [useWeight, setUseWeight] = useState(0)
-  const [reps, setReps] = useState(0)
-  const [maxWeight, setMaxWeight] = useState(0)
-  const [strengthLevel, setStrengthLevel] = useState('')
+const InputField = ({ name, bodyWeight }) => {
+  const [exercise, setExercise] = useState('') // string
+  const [lift, setLift] = useState(0) // number
+  const [reps, setReps] = useState(0) // number
+  const [maxLift, setMaxLift] = useState(0) // number
+  const [strengthLevel, setStrengthLevel] = useState('') // string
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
 
-  const calcMaxWeightAndStrengthLevel = useCallback((reps) => {
+  const calcMaxLiftAndStrengthLevel = useCallback((reps) => {
 
-    if (useWeight === 0 && reps === 0) return
-    // useWeightとrepsを入力したらmaxWeightを計算してstrengthLevelを判定する
+    const getStrengthLevel = (bodyWeight, max) => {
+
+      const weightList = benchPressTable.map((row) => { return row.weight })
+      // find closest body weight
+      const closest = weightList.reduce((prev, curr) => {
+        return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
+      })
+      console.log({ bodyWeight }) // 70
+      console.log({ closest }) // 70
+    }
+
+    if (lift === 0 && reps === 0) return
+    // liftとrepsを入力したらmaxLiftを計算してstrengthLevelを判定する
     // 計算式が冗長になるなら別ファイルにする
-    const weight = useWeight + useWeight * reps / 40
+    const max = lift + lift * reps / 40
+    const level = getStrengthLevel(bodyWeight, maxLift)
 
     setReps(reps)
-    setMaxWeight(weight)
-    setStrengthLevel('Beginner')
+    setMaxLift(max)
+    setStrengthLevel(level)
   })
 
   return (
@@ -76,7 +89,7 @@ const InputField = ({ name, weight }) => {
             InputProps={{
               endAdornment: <InputAdornment position="end">kg</InputAdornment>,
             }}
-            onChange={(e) => setUseWeight(Number(e.target.value))}
+            onChange={(e) => setLift(Number(e.target.value))}
           />
           <FormControl margin="normal">
             <InputLabel shrink htmlFor="reps-native-label-placeholder">
@@ -84,7 +97,7 @@ const InputField = ({ name, weight }) => {
             </InputLabel>
             <NativeSelect
               value={reps}
-              onChange={(e) => calcMaxWeightAndStrengthLevel(e.target.value)}
+              onChange={(e) => calcMaxLiftAndStrengthLevel(e.target.value)}
               inputProps={{
                 name: 'reps',
                 id: 'reps-native-label-placeholder',
@@ -108,7 +121,7 @@ const InputField = ({ name, weight }) => {
           <TextField
             id="standard-read-only-input"
             label="Max Weight ?"
-            value={maxWeight}
+            value={maxLift}
             InputProps={{
               readOnly: true,
             }}
@@ -125,7 +138,7 @@ const InputField = ({ name, weight }) => {
         <Grid item xs={1}>
           <ReportSubmitButton
             name={name}
-            weight={weight} />
+            weight={bodyWeight} />
         </Grid>
       </Grid>
     </form>
