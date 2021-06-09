@@ -5,8 +5,13 @@ import Main from './Main'
 import config from '../config.json'
 
 const App = () => {
-  const [name, setName] = useState('Guest')
-  const [bodyWeight, setBodyWeight] = useState('')
+
+  // for test value
+  const initialName = 'Guest'
+  const initialWeight = 70
+
+  const [name, setName] = useState(initialName)
+  const [bodyWeight, setBodyWeight] = useState(initialWeight)
   return (
     (name === '' && config.signInEnabled) ?
       <SignIn setName={setName} setBodyWeight={setBodyWeight} />
