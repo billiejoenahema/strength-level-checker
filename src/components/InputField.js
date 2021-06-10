@@ -32,28 +32,57 @@ const InputField = ({ name, bodyWeight }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
 
-  const calcMaxLiftAndStrengthLevel = useCallback((reps) => {
+  const calcMaxLiftAndStrengthLevel = useCallback(() => {
+
+    // liftとrepsを入力したらmaxLiftを計算してstrengthLevelを判定する
+    if (lift === 0 && reps === 0) return
+    const max = lift + lift * reps / 40
 
     const getStrengthLevel = (bodyWeight, max) => {
-
+      // 近似値の体重があるオブジェクトのインデックスを取得
+      // インデックスを頼りに level 配列を取得
+      // level 配列から max に一番近い数値のインデックスを取得
+      // インデックスに対応する strengthLevel を setStrengthLevel にセット
       const weightList = benchPressTable.map((row) => { return row.weight })
       // find closest body weight
       const closest = weightList.reduce((prev, curr) => {
         return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
       })
-      console.log({ bodyWeight }) // 70
-      console.log({ closest }) // 70
+      benchPressTable.map((row) => {
+        if (row.weight === closest) {
+          const number = row.levels.reduce((prev, curr) => {
+            return (Math.abs(curr - max) < Math.abs(prev - max) ? curr : prev)
+          })
+          const levelIndex = row.levels.indexOf(number)
+          console.log(levelIndex)
+          switch (levelIndex) {
+            case 0:
+              setStrengthLevel('Beginner')
+              break
+            case 1:
+              setStrengthLevel('Novice')
+              break
+            case 2:
+              setStrengthLevel('Intermediate')
+              break
+            case 3:
+              setStrengthLevel('Advanced')
+              break
+            case 4:
+              setStrengthLevel('Elite')
+              break
+            default:
+              return setStrengthLevel('error')
+
+          }
+        }
+
+        return
+      })
     }
-
-    if (lift === 0 && reps === 0) return
-    // liftとrepsを入力したらmaxLiftを計算してstrengthLevelを判定する
-    // 計算式が冗長になるなら別ファイルにする
-    const max = lift + lift * reps / 40
-    const level = getStrengthLevel(bodyWeight, maxLift)
-
-    setReps(reps)
+    getStrengthLevel(bodyWeight, max)
     setMaxLift(max)
-    setStrengthLevel(level)
+    setReps(reps)
   })
 
   return (
@@ -76,9 +105,9 @@ const InputField = ({ name, bodyWeight }) => {
               }}
             >
               <option value="benchPress">Bench Press</option>
-              <option value="deadLift">Dead Lift</option>
+              {/* <option value="deadLift">Dead Lift</option>
               <option value="squat">Squat</option>
-              <option value="shoulderPress">Shoulder Press</option>
+              <option value="shoulderPress">Shoulder Press</option> */}
             </NativeSelect>
           </FormControl>
           <TextField
@@ -97,7 +126,7 @@ const InputField = ({ name, bodyWeight }) => {
             </InputLabel>
             <NativeSelect
               value={reps}
-              onChange={(e) => calcMaxLiftAndStrengthLevel(e.target.value)}
+              onChange={(e) => setReps(Number(e.target.value))}
               inputProps={{
                 name: 'reps',
                 id: 'reps-native-label-placeholder',
