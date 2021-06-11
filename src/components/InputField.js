@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Grid,
   Avatar,
@@ -32,13 +32,16 @@ const InputField = ({ name, bodyWeight }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
 
-  const calcMaxLiftAndStrengthLevel = useCallback(() => {
+  useEffect(() => {
+    calcMaxLiftAndStrengthLevel()
+  }, [lift, reps])
 
+  const calcMaxLiftAndStrengthLevel = useCallback(() => {
     // liftとrepsを入力したらmaxLiftを計算してstrengthLevelを判定する
     if (lift === 0 && reps === 0) return
     const max = lift + lift * reps / 40
 
-    const getStrengthLevel = (bodyWeight, max) => {
+    const getStrengthLevel = () => {
       // 近似値の体重があるオブジェクトのインデックスを取得
       // インデックスを頼りに level 配列を取得
       // level 配列から max に一番近い数値のインデックスを取得
@@ -48,13 +51,15 @@ const InputField = ({ name, bodyWeight }) => {
       const closest = weightList.reduce((prev, curr) => {
         return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
       })
-      benchPressTable.map((row) => {
+      benchPressTable.forEach((row) => {
         if (row.weight === closest) {
-          const number = row.levels.reduce((prev, curr) => {
-            return (Math.abs(curr - max) < Math.abs(prev - max) ? curr : prev)
+          const number = row.levels.find((level) => {
+            return max <= level
           })
+          // const number = row.levels.reduce((prev, curr) => {
+          //   return (Math.abs(curr - max) < Math.abs(prev - max) ? curr : prev)
+          // })
           const levelIndex = row.levels.indexOf(number)
-          console.log(levelIndex)
           switch (levelIndex) {
             case 0:
               setStrengthLevel('Beginner')
@@ -73,10 +78,8 @@ const InputField = ({ name, bodyWeight }) => {
               break
             default:
               return setStrengthLevel('error')
-
           }
         }
-
         return
       })
     }
