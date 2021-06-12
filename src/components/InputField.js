@@ -24,28 +24,30 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const InputField = ({ name, bodyWeight }) => {
-  const [exercise, setExercise] = useState('') // string
-  const [lift, setLift] = useState(0) // number
-  const [reps, setReps] = useState(0) // number
-  const [maxLift, setMaxLift] = useState(0) // number
-  const [strengthLevel, setStrengthLevel] = useState('') // string
+  const [report, setReport] = useState({
+    exercise: 'bench press',
+    lift: 0,
+    reps: 0,
+    maxLift: 0,
+    strengthLevel: ''
+  })
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
   const debounceInterval = 500
-  const [strengthLevelValue] = useDebounce(strengthLevel, debounceInterval)
-  const [maxLiftValue] = useDebounce(maxLift, debounceInterval)
+  const [strengthLevelValue] = useDebounce(report.strengthLevel, debounceInterval)
+  const [maxLiftValue] = useDebounce(report.maxLift, debounceInterval)
 
   useEffect(() => {
-    if (lift === 0 || reps === 0) return
+    if (report.lift === 0 || report.reps === 0) return
     calcMaxLiftAndStrengthLevel()
-  }, [lift, reps])
+    console.log(report.exercise)
+  }, [report.lift, report.reps])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
-    const maxLift = Math.round(lift + lift * reps / 40)
+    const maxLift = Math.round(report.lift + report.lift * report.reps / 40)
     // maxLiftとbodyWeightからstrengthLevelを判定
     const judgedLevel = getStrengthLevel(maxLift, bodyWeight)
-    setStrengthLevel(judgedLevel)
-    setMaxLift(maxLift)
+    setReport({ ...report, strengthLevel: judgedLevel, maxLift: maxLift })
   })
 
   return (
@@ -60,8 +62,8 @@ const InputField = ({ name, bodyWeight }) => {
               Exercise
             </InputLabel>
             <NativeSelect
-              value={exercise}
-              onChange={(e) => setExercise(e.target.value)}
+              value={report.exercise}
+              onChange={(e) => setReport({ ...report, exercise: e.target.value })}
               inputProps={{
                 name: 'exercise',
                 id: 'exercise-native-label-placeholder',
@@ -81,15 +83,15 @@ const InputField = ({ name, bodyWeight }) => {
             InputProps={{
               endAdornment: <InputAdornment position="end">kg</InputAdornment>,
             }}
-            onChange={(e) => setLift(Number(e.target.value))}
+            onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
           />
           <FormControl margin="normal">
             <InputLabel shrink htmlFor="reps-native-label-placeholder">
               Reps
             </InputLabel>
             <NativeSelect
-              value={reps}
-              onChange={(e) => setReps(Number(e.target.value))}
+              value={report.reps}
+              onChange={(e) => setReport({ ...report, reps: Number(e.target.value) })}
               inputProps={{
                 name: 'reps',
                 id: 'reps-native-label-placeholder',
