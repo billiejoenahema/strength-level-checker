@@ -6,7 +6,8 @@ export const getStrengthLevel = (maxLift, bodyWeight) => {
   const closestValue = bodyWeightColumn.reduce((prev, curr) => {
     return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
   })
-  BENCH_PRESS_TABLE.map((row) => {
+  let strengthLevel
+  BENCH_PRESS_TABLE.forEach((row) => {
     if (row.weight !== closestValue) return
     const criteriaWeight = row.criterion.find((criteria) => {
       return (maxLift <= criteria)
@@ -14,17 +15,23 @@ export const getStrengthLevel = (maxLift, bodyWeight) => {
     const criteriaIndex = row.criterion.indexOf(criteriaWeight)
     switch (criteriaIndex) {
       case 0:
-        return 'Beginner'
+        strengthLevel = 'Beginner'
+        break
       case 1:
-        return 'Novice'
+        strengthLevel = 'Novice'
+        break
       case 2:
-        return 'Intermediate'
+        strengthLevel = 'Intermediate'
+        break
       case 3:
-        return 'Advanced'
+        strengthLevel = 'Advanced'
+        break
       case 4:
-        return 'Elite'
+        strengthLevel = 'Elite'
+        break
       default:
-        return 'unKnown'
+        strengthLevel = 'unKnown'
     }
   })
+  return strengthLevel
 }
