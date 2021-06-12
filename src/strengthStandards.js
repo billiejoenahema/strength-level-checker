@@ -1,4 +1,4 @@
-export const benchPressTable = [
+export const BENCH_PRESS_TABLE = [
   { weight: 50, levels: [23, 37, 55, 77, 102] },
   { weight: 55, levels: [28, 43, 63, 86, 112] },
   { weight: 60, levels: [33, 49, 70, 95, 121] },
