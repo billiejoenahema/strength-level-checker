@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDebounce } from 'use-debounce'
+import { gravatarPath } from '../gravatar'
+import ReportSubmitButton from './ReportSubmitButton'
+import { getStrengthLevel } from '../getStrengthLevel'
 import {
   Grid,
   Avatar,
@@ -10,10 +13,6 @@ import {
   InputAdornment,
   TextField
 } from '@material-ui/core'
-import { gravatarPath } from '../gravatar'
-import ReportSubmitButton from './ReportSubmitButton'
-import { benchPressTable } from '../strengthStandards'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,53 +36,17 @@ const InputField = ({ name, bodyWeight }) => {
   const [maxLiftValue] = useDebounce(maxLift, debounceInterval)
 
   useEffect(() => {
+    if (lift === 0 || reps === 0) return
     calcMaxLiftAndStrengthLevel()
   }, [lift, reps])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
-    // liftとrepsを入力したらmaxLiftを計算してstrengthLevelを判定する
-    if (lift === 0 || reps === 0) return
-    const max = lift + lift * reps / 40
-
-    const getStrengthLevel = () => {
-      const weightList = benchPressTable.map((row) => { return row.weight })
-      const closest = weightList.reduce((prev, curr) => {
-        return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
-      })
-      benchPressTable.forEach((row) => {
-        if (row.weight === closest) {
-          const number = row.levels.find((level) => {
-            return max <= level
-          })
-          const levelIndex = row.levels.indexOf(number)
-          switch (levelIndex) {
-            case 0:
-              setStrengthLevel('Beginner')
-              break
-            case 1:
-              setStrengthLevel('Novice')
-              break
-            case 2:
-              setStrengthLevel('Intermediate')
-              break
-            case 3:
-              setStrengthLevel('Advanced')
-              break
-            case 4:
-              setStrengthLevel('Elite')
-              break
-            default:
-              return setStrengthLevel('error')
-          }
-        }
-        return
-      })
-    }
-    getStrengthLevel()
-    setReps(reps)
-    if (lift !== 0 && reps !== 0) {
-      setMaxLift(max)
-    }
+    const maxLift = lift + lift * reps / 40
+    // maxLiftとbodyWeightからstrengthLevelを判定
+    const judgedLevel = getStrengthLevel(maxLift, bodyWeight)
+    console.log(judgedLevel)
+    setStrengthLevel(judgedLevel)
+    setMaxLift(maxLift)
   })
 
   return (
