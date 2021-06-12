@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import { useDebounce } from 'use-debounce'
 import {
   Grid,
   Avatar,
@@ -31,6 +32,9 @@ const InputField = ({ name, bodyWeight }) => {
   const [strengthLevel, setStrengthLevel] = useState('') // string
   const classes = useStyles()
   const avatarPath = gravatarPath(name)
+  const debounceInterval = 500
+  const [strengthLevelValue] = useDebounce(strengthLevel, debounceInterval)
+  const [maxLiftValue] = useDebounce(maxLift, debounceInterval)
 
   useEffect(() => {
     calcMaxLiftAndStrengthLevel()
@@ -38,7 +42,7 @@ const InputField = ({ name, bodyWeight }) => {
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
     // liftとrepsを入力したらmaxLiftを計算してstrengthLevelを判定する
-    if (lift === 0 && reps === 0) return
+    if (lift === 0 || reps === 0) return
     const max = lift + lift * reps / 40
 
     const getStrengthLevel = () => {
@@ -83,9 +87,11 @@ const InputField = ({ name, bodyWeight }) => {
         return
       })
     }
-    getStrengthLevel(bodyWeight, max)
-    setMaxLift(max)
+    getStrengthLevel()
     setReps(reps)
+    if (lift !== 0 && reps !== 0) {
+      setMaxLift(max)
+    }
   })
 
   return (
@@ -152,16 +158,16 @@ const InputField = ({ name, bodyWeight }) => {
           </FormControl>
           <TextField
             id="standard-read-only-input"
-            label="Max Weight ?"
-            value={maxLift}
+            label="Your Max Weight"
+            value={maxLiftValue}
             InputProps={{
               readOnly: true,
             }}
           />
           <TextField
             id="standard-read-only-input"
-            label="Strength Level ?"
-            value={strengthLevel}
+            label="your Strength Level"
+            value={strengthLevelValue}
             InputProps={{
               readOnly: true,
             }}
