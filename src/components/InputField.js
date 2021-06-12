@@ -41,10 +41,9 @@ const InputField = ({ name, bodyWeight }) => {
   }, [lift, reps])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
-    const maxLift = lift + lift * reps / 40
+    const maxLift = Math.round(lift + lift * reps / 40)
     // maxLiftとbodyWeightからstrengthLevelを判定
     const judgedLevel = getStrengthLevel(maxLift, bodyWeight)
-    console.log(judgedLevel)
     setStrengthLevel(judgedLevel)
     setMaxLift(maxLift)
   })
