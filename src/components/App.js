@@ -6,7 +6,7 @@ import config from '../config.json'
 
 const App = () => {
 
-  // for test value
+  // for testing
   const initialName = 'Guest'
   const initialWeight = 70
 
