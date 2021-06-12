@@ -46,12 +46,7 @@ const InputField = ({ name, bodyWeight }) => {
     const max = lift + lift * reps / 40
 
     const getStrengthLevel = () => {
-      // 近似値の体重があるオブジェクトのインデックスを取得
-      // インデックスを頼りに level 配列を取得
-      // level 配列から max に一番近い数値のインデックスを取得
-      // インデックスに対応する strengthLevel を setStrengthLevel にセット
       const weightList = benchPressTable.map((row) => { return row.weight })
-      // find closest body weight
       const closest = weightList.reduce((prev, curr) => {
         return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
       })
@@ -60,9 +55,6 @@ const InputField = ({ name, bodyWeight }) => {
           const number = row.levels.find((level) => {
             return max <= level
           })
-          // const number = row.levels.reduce((prev, curr) => {
-          //   return (Math.abs(curr - max) < Math.abs(prev - max) ? curr : prev)
-          // })
           const levelIndex = row.levels.indexOf(number)
           switch (levelIndex) {
             case 0:
