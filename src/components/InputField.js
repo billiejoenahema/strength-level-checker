@@ -120,7 +120,8 @@ const InputField = ({ name, bodyWeight }) => {
         <Grid item xs={1}>
           <ReportSubmitButton
             name={name}
-            weight={bodyWeight} />
+            bodyWeight={bodyWeight}
+            report={report} />
         </Grid>
       </Grid>
     </form>
