@@ -1,23 +1,25 @@
 import React from 'react'
 import { IconButton } from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import { pushReport } from '../firebase'
+import { setReport } from '../firebase'
 
 const ReportSubmitButton = ({
   name,
   bodyWeight,
-  exercise,
-  lift,
-  reps,
-  maxLift,
-  strengthLevel
+  report
 }) => {
-
-  const isInputted = exercise && lift && reps
-
+  const isInputted = (report.lift === 0) || (report.reps === 0)
   return (
     <IconButton disabled={isInputted} onClick={() => {
-      pushReport({ name, bodyWeight, exercise, lift, reps, maxLift, strengthLevel })
+      setReport({
+        name: name,
+        bodyWeight: bodyWeight,
+        exercise: report.exercise,
+        lift: report.lift,
+        reps: report.reps,
+        maxLift: report.maxLift,
+        strengthLevel: report.strengthLevel
+      })
     }}>
       <SendIcon />
     </IconButton>
