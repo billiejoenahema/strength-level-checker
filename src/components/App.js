@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css'
-import SignIn from './SignIn'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import PrivateRoute from '../auth/PrivateRoute'
+import { AuthProvider } from '../auth/AuthProvider'
+import Login from '../auth/Login'
+import SignUp from '../auth/SignUp'
 import Main from './Main'
-import config from '../config.json'
 
 const App = () => {
 
-  // for testing
-  const initialName = 'Guest'
-  const initialWeight = 70
-
-  const [name, setName] = useState(initialName)
-  const [bodyWeight, setBodyWeight] = useState(initialWeight)
   return (
-    (name === '' && config.signInEnabled) ?
-      <SignIn setName={setName} setBodyWeight={setBodyWeight} />
-      : <Main name={name} bodyWeight={bodyWeight} />
+    <AuthProvider>
+      <Router>
+        <div>
+          <PrivateRoute exact path='/' component={Main} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/signup' component={SignUp} />
+        </div>
+      </Router>
+    </AuthProvider>
   )
 }
 
