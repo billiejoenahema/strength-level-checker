@@ -3,7 +3,6 @@ import { List, makeStyles } from '@material-ui/core'
 import ArchiveItem from './ArchiveItem'
 import { reportRef } from '../firebase'
 
-
 const useStyles = makeStyles({
   root: {
     gridRow: 1,

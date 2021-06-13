@@ -24,7 +24,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputField = ({ name, bodyWeight }) => {
+const InputField = ({ user, setUser }) => {
+  console.log(user.userName)
+
   const [report, setReport] = useState({
     exercise: 'bench press',
     lift: 0,
@@ -33,7 +35,7 @@ const InputField = ({ name, bodyWeight }) => {
     strengthLevel: ''
   })
   const classes = useStyles()
-  const avatarPath = gravatarPath(name)
+  const avatarPath = gravatarPath(user.userName)
   const debounceInterval = 500
   const [strengthLevelValue] = useDebounce(report.strengthLevel, debounceInterval)
   const [maxLiftValue] = useDebounce(report.maxLift, debounceInterval)
@@ -46,7 +48,7 @@ const InputField = ({ name, bodyWeight }) => {
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
     const maxLift = Math.round(report.lift + report.lift * report.reps / 40)
     // maxLiftとbodyWeightからstrengthLevelを判定
-    const judgedLevel = getStrengthLevel(maxLift, bodyWeight)
+    const judgedLevel = getStrengthLevel(maxLift, user.bodyWeight)
     setReport({ ...report, strengthLevel: judgedLevel, maxLift: maxLift })
   })
 
@@ -55,6 +57,7 @@ const InputField = ({ name, bodyWeight }) => {
       <Grid container>
         <Grid item xs={1}>
           <Avatar src={avatarPath} />
+          <span>{user.userName}</span>
         </Grid>
         <Grid item xs={10}>
           <FormControl margin="normal">
@@ -70,9 +73,6 @@ const InputField = ({ name, bodyWeight }) => {
               }}
             >
               <option value="benchPress">Bench Press</option>
-              {/* <option value="deadLift">Dead Lift</option>
-              <option value="squat">Squat</option>
-              <option value="shoulderPress">Shoulder Press</option> */}
             </NativeSelect>
           </FormControl>
           <TextField
@@ -119,9 +119,10 @@ const InputField = ({ name, bodyWeight }) => {
         </Grid>
         <Grid item xs={1}>
           <ReportSubmitButton
-            name={name}
-            bodyWeight={bodyWeight}
-            report={report} />
+            report={report}
+            setReport={setReport}
+            user={user}
+          />
         </Grid>
       </Grid>
     </form>
