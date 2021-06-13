@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import NavigationBar from './NavigationBar'
 import InputField from './InputField'
@@ -12,13 +12,14 @@ const useStyles = makeStyles({
   },
 })
 
-const Main = ({ name, bodyWeight }) => {
+const Main = () => {
   const classes = useStyles()
+  const [user, setUser] = useState({ userName: 'Guest', bodyWeight: 70 })
 
   return (
     <div className={classes.root} >
-      <NavigationBar name={name} />
-      <InputField name={name} bodyWeight={bodyWeight} />
+      <NavigationBar userName={user.userName} />
+      <InputField user={user} setUser={setUser} />
       {/* <Archives /> */}
     </div>
   )
