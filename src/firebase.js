@@ -22,8 +22,8 @@ const firebaseConfig = {
   measurementId: REACT_APP_FIREBASE_MEASUREMENT_ID
 }
 
-firebase.initializeApp(firebaseConfig)
-const db = firebase.firestore()
+export const firebaseApp = firebase.initializeApp(firebaseConfig)
+const db = firebaseApp.firestore()
 
 export const addReport = ({ name, bodyWeight, exercise, lift, reps, maxLift, strengthLevel }) => {
   const docId = db.collection("members").doc().id
