@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const InputField = ({ user, setUser }) => {
-  console.log(user.userName)
 
   const [report, setReport] = useState({
     exercise: 'bench press',
