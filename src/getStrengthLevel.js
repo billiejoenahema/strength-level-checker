@@ -1,5 +1,6 @@
 import { BENCH_PRESS_TABLE } from './strengthStandards'
 
+// maxLiftとbodyWeightからstrengthLevelを判定
 export const getStrengthLevel = (maxLift, bodyWeight) => {
   const bodyWeightColumn = BENCH_PRESS_TABLE.map((row) => { return row.weight })
   // bodyWeightColumnの中からbodyWeightの近似値を探す
