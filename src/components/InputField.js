@@ -4,6 +4,7 @@ import { gravatarPath } from '../gravatar'
 import RepsSelector from './RepsSelector'
 import ReportSubmitButton from './ReportSubmitButton'
 import { getStrengthLevel } from '../getStrengthLevel'
+import { getMaxLift } from '../getMaxLift'
 import {
   Grid,
   Avatar,
@@ -45,8 +46,7 @@ const InputField = ({ user, setUser }) => {
   }, [report.lift, report.reps])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
-    const maxLift = Math.round(report.lift + report.lift * report.reps / 40)
-    // maxLiftとbodyWeightからstrengthLevelを判定
+    const maxLift = getMaxLift(report)
     const judgedLevel = getStrengthLevel(maxLift, user.bodyWeight)
     setReport({ ...report, strengthLevel: judgedLevel, maxLift: maxLift })
   })
