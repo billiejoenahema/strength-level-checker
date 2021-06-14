@@ -34,7 +34,8 @@ export const addReport = ({ userName, bodyWeight, exercise, lift, reps, maxLift,
     lift: lift,
     reps: reps,
     maxLift: maxLift,
-    strengthLevel: strengthLevel
+    strengthLevel: strengthLevel,
+    created_at: firebase.firestore.FieldValue.serverTimestamp()
   }, { merge: true })
 }
 export const reportRef = firebase.database().ref('report')
