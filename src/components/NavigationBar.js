@@ -1,7 +1,8 @@
 import React from 'react'
 import { firebaseApp } from '../firebase.js'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Box } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import PersonIcon from '@material-ui/icons/Person'
 import {
   AppBar,
   Toolbar,
@@ -36,11 +37,18 @@ const NavigationBar = ({ userName }) => {
           <Typography variant="h6" className={classes.title}>
             Strength Level Checker
           </Typography>
-          <span>{userName}</span>
+          <Box>
+            <Box>
+              <PersonIcon />
+            </Box>
+            <Box>
+              {userName}
+            </Box>
+          </Box>
           <Button color="inherit" onClick={() => firebaseApp.auth().signOut()}>logout</Button>
         </Toolbar>
       </AppBar>
-    </div>
+    </div >
   )
 }
 
