@@ -1,7 +1,8 @@
 # Strength Level Checker
 
-- name
-- bodyWeight
+- user
+  - userName
+  - bodyWeight
 - report
   - exercise
   - lift
