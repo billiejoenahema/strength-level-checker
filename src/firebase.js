@@ -39,7 +39,3 @@ export const addReport = ({ userName, bodyWeight, exercise, lift, reps, maxLift,
   }, { merge: true })
 }
 export const reportRef = firebase.database().ref('report')
-
-// export const pushReport = ({ name, bodyWeight, exercise, lift, reps, maxLift, strengthLevel }) => {
-//   reportRef.push({ name, bodyWeight, exercise, lift, reps, maxLift, strengthLevel })
-// }
