@@ -19,8 +19,8 @@ const Main = () => {
   return (
     <div className={classes.root} >
       <NavigationBar userName={user.userName} />
+      <Archives />
       <InputField user={user} setUser={setUser} />
-      {/* <Archives /> */}
     </div>
   )
 }
