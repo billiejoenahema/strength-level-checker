@@ -128,4 +128,4 @@ const InputField = ({ user, setUser }) => {
   )
 }
 
-export default InputField
+export default React.memo(InputField)
