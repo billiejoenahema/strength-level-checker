@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { gravatarPath } from '../gravatar'
 import {
@@ -15,30 +15,19 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const MessageItem = React.memo(({
-  isLastItem, // boolean
-  name, // string
-  bodyWeight, // number
-  report // array?
-}) => {
-  const ref = useRef(null)
+const ArchiveItem = ({ archive }) => {
   const classes = useStyles()
-  const avatarPath = gravatarPath(name)
-  const [lift, reps, maxLift, strengthLevel] = report // number, number, number, string?
+  const avatarPath = gravatarPath(archive.userName)
+  const { userName, bodyWeight, lift, reps, maxLift, strengthLevel } = archive
 
-  useEffect(() => {
-    if (isLastItem) {
-      ref.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }, [isLastItem])
 
   return (
-    <ListItem divider={true} ref={ref}>
+    <ListItem divider={true}>
       <ListItemAvatar>
         <Avatar src={avatarPath} />
       </ListItemAvatar>
       <ListItemText
-        primary={name}
+        primary={userName}
         secondary={
           <Typography
             component="span"
@@ -46,16 +35,18 @@ const MessageItem = React.memo(({
             className={classes.inline}
             color="textPrimary"
           >
-            {bodyWeight}
-            {lift}
-            {reps}
-            {maxLift}
-            {strengthLevel}
+            <ul>
+              <li>body weight: {bodyWeight} kg</li>
+              <li>lift: {lift} kg</li>
+              <li>reps: {reps}</li>
+              <li>max lift: {maxLift} kg</li>
+              <li>strength level: {strengthLevel}</li>
+            </ul>
           </Typography>
         }
       />
     </ListItem>
   )
-})
+}
 
-export default MessageItem
+export default React.memo(ArchiveItem)
