@@ -51,12 +51,12 @@ const InputField = ({ user, setUser }) => {
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
     const resultLift = getMaxLift(report)
-    const judgedLevel = getStrengthLevel(report.maxLift, user.bodyWeight)
+    const judgedLevel = getStrengthLevel(resultLift, user.bodyWeight)
     setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
   })
 
   return (
-    <Box Box className={classes.stickToBottom} boxShadow={2} >
+    <Box className={classes.stickToBottom} boxShadow={2} >
       <form className={classes.root} noValidate autoComplete="off">
         <Grid container>
           <Grid item xs={1}>
@@ -106,7 +106,7 @@ const InputField = ({ user, setUser }) => {
             </FormControl>
             <TextField
               id="standard-read-only-input"
-              label="Your Max Weight"
+              label="Your Max Lift"
               value={report.maxLift}
               InputProps={{
                 readOnly: true,
@@ -114,7 +114,7 @@ const InputField = ({ user, setUser }) => {
             />
             <TextField
               id="standard-read-only-input"
-              label="your Strength Level"
+              label="Your Strength Level"
               value={report.strengthLevel}
               InputProps={{
                 readOnly: true,
