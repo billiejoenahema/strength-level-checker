@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { useDebounce } from 'use-debounce'
 import { gravatarPath } from '../gravatar'
 import RepsSelector from './RepsSelector'
 import ReportSubmitButton from './ReportSubmitButton'
@@ -13,7 +12,8 @@ import {
   InputLabel,
   NativeSelect,
   InputAdornment,
-  TextField
+  TextField,
+  Box
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiTextField-root': {
       margin: theme.spacing(3),
       width: '20ch',
+      gridRow: 2,
     },
   },
 }))
@@ -32,13 +33,10 @@ const InputField = ({ user, setUser }) => {
     lift: 0,
     reps: 0,
     maxLift: 0,
-    strengthLevel: ''
+    strengthLevel: '',
   })
   const classes = useStyles()
   const avatarPath = gravatarPath(user.userName)
-  const debounceInterval = 500
-  const [strengthLevelValue] = useDebounce(report.strengthLevel, debounceInterval)
-  const [maxLiftValue] = useDebounce(report.maxLift, debounceInterval)
 
   useEffect(() => {
     if (report.lift === 0 || report.reps === 0) return
@@ -46,9 +44,9 @@ const InputField = ({ user, setUser }) => {
   }, [report.lift, report.reps])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
-    const maxLift = getMaxLift(report)
-    const judgedLevel = getStrengthLevel(maxLift, user.bodyWeight)
-    setReport({ ...report, strengthLevel: judgedLevel, maxLift: maxLift })
+    const resultLift = getMaxLift(report)
+    const judgedLevel = getStrengthLevel(report.maxLift, user.bodyWeight)
+    setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
   })
 
   return (
@@ -102,7 +100,7 @@ const InputField = ({ user, setUser }) => {
           <TextField
             id="standard-read-only-input"
             label="Your Max Weight"
-            value={maxLiftValue}
+            value={report.maxLift}
             InputProps={{
               readOnly: true,
             }}
@@ -110,7 +108,7 @@ const InputField = ({ user, setUser }) => {
           <TextField
             id="standard-read-only-input"
             label="your Strength Level"
-            value={strengthLevelValue}
+            value={report.strengthLevel}
             InputProps={{
               readOnly: true,
             }}
