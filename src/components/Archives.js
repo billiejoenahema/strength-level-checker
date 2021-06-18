@@ -7,6 +7,7 @@ const useStyles = makeStyles({
   root: {
     gridRow: 2,
     width: '100%',
+    overFlow: 'auto'
   },
 })
 
