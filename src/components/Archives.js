@@ -32,7 +32,6 @@ const Archives = () => {
     <List className={classes.root}>
       {
         archives.map((archive) => {
-          console.log(archive)
           return (
             <ArchiveItem
               archive={archive}
