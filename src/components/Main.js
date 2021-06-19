@@ -22,7 +22,7 @@ const Main = () => {
   useEffect(() => {
     const getCollection = async () => {
       const reportRef = db.collection('report')
-      const snapshot = await reportRef.get()
+      const snapshot = await reportRef.orderBy('created_at', 'desc').get()
       const dataList = await snapshot.docs.map((doc) => {
         return doc.data()
       })
