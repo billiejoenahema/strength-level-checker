@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { List, makeStyles } from '@material-ui/core'
 import ArchiveItem from './ArchiveItem'
-import { db } from '../firebase'
 
 const useStyles = makeStyles({
   root: {
@@ -11,22 +10,8 @@ const useStyles = makeStyles({
   },
 })
 
-const Archives = () => {
-  const [archives, setArchives] = useState([])
+const Archives = ({ archives }) => {
   const classes = useStyles()
-
-  // archivesはMainで取得してArchives componentへpropsを渡したほうがよい？
-  useEffect(() => {
-    const getCollection = async () => {
-      const reportRef = db.collection('report')
-      const snapshot = await reportRef.get()
-      const dataList = await snapshot.docs.map((doc) => {
-        return doc.data()
-      })
-      setArchives(dataList)
-    }
-    getCollection()
-  }, [])
 
   return (
     <List className={classes.root}>
