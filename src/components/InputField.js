@@ -67,7 +67,7 @@ const InputField = ({ user, setUser }) => {
             <FormControl margin="normal">
               <InputLabel shrink htmlFor="exercise-native-label-placeholder">
                 Exercise
-            </InputLabel>
+              </InputLabel>
               <NativeSelect
                 value={report.exercise}
                 onChange={(e) => setReport({ ...report, exercise: e.target.value })}
@@ -92,7 +92,7 @@ const InputField = ({ user, setUser }) => {
             <FormControl margin="normal">
               <InputLabel shrink htmlFor="reps-native-label-placeholder">
                 Reps
-            </InputLabel>
+              </InputLabel>
               <NativeSelect
                 value={report.reps}
                 onChange={(e) => setReport({ ...report, reps: Number(e.target.value) })}

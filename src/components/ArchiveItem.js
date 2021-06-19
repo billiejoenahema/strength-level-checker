@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { gravatarPath } from '../gravatar'
+import { formatDate } from '../formatDate'
 import {
   ListItem,
   ListItemText,
@@ -18,7 +19,9 @@ const useStyles = makeStyles(() => ({
 const ArchiveItem = ({ archive }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(archive.userName)
-  const { userName, bodyWeight, lift, reps, maxLift, strengthLevel } = archive
+  const { userName, bodyWeight, lift, reps, maxLift, strengthLevel, created_at } = archive
+  const dateObj = new Date(created_at.toDate())
+  const formattedDate = formatDate(dateObj)
 
 
   return (
@@ -41,6 +44,7 @@ const ArchiveItem = ({ archive }) => {
               <li>reps: {reps}</li>
               <li>max lift: {maxLift} kg</li>
               <li>strength level: {strengthLevel}</li>
+              <li>created_at: {formattedDate}</li>
             </ul>
           </Typography>
         }
