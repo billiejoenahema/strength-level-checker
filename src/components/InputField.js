@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputField = ({ user, setUser }) => {
+const InputField = ({ user }) => {
 
   const [report, setReport] = useState({
     exercise: 'bench press',
