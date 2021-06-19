@@ -1,4 +1,4 @@
-// 日付をYYYY-MM-DDの書式で返すメソッド
+// format Date object
 export function formatDate(dateObj) {
   const year = dateObj.getFullYear();
   const month = ('00' + (dateObj.getMonth() + 1)).slice(-2)
