@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputField = ({ user, setIsPosted, setArchives }) => {
+const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   const [report, setReport] = useState({
     exercise: 'bench press',
@@ -131,7 +131,7 @@ const InputField = ({ user, setIsPosted, setArchives }) => {
               report={report}
               setReport={setReport}
               user={user}
-              setIsPosted={setIsPosted}
+              setIsSubmit={setIsSubmit}
               setArchives={setArchives}
             />
           </Grid>

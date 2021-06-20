@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Archives = ({ archives }) => {
+const Archives = ({ archives, setArchives, setIsSubmit }) => {
   const classes = useStyles()
 
   return (
@@ -21,6 +21,8 @@ const Archives = ({ archives }) => {
             <ArchiveItem
               archive={archive}
               key={index}
+              setArchives={setArchives}
+              setIsSubmit={setIsSubmit}
             />
           )
         })

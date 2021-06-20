@@ -3,7 +3,7 @@ import { IconButton } from '@material-ui/core'
 import SendIcon from '@material-ui/icons/Send'
 import { addReport } from '../firebase'
 
-const ReportSubmitButton = ({ report, setReport, user, setIsPosted, setArchives }) => {
+const ReportSubmitButton = ({ report, setReport, user, setIsSubmit, setArchives }) => {
   const isInputted = (report.lift === 0) || (report.reps === 0)
   return (
     <IconButton disabled={isInputted} onClick={
@@ -26,7 +26,7 @@ const ReportSubmitButton = ({ report, setReport, user, setIsPosted, setArchives 
             strengthLevel: ''
           })
           setArchives([])
-          setIsPosted(true)
+          setIsSubmit(true)
         } catch (error) {
           alert(error.message)
         }

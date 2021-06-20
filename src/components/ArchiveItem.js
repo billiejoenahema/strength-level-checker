@@ -2,12 +2,16 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { gravatarPath } from '../gravatar'
 import { formatDate } from '../formatDate'
+import { deleteReport } from '../firebase'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {
+  List,
   ListItem,
   ListItemText,
   ListItemAvatar,
   Avatar,
-  Typography
+  Typography,
+  IconButton
 } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
@@ -16,13 +20,11 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-const ArchiveItem = ({ archive }) => {
+const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(archive.userName)
-  const { userName, bodyWeight, lift, reps, maxLift, strengthLevel, created_at } = archive
-  const dateObj = (created_at === null) ? null : new Date(created_at.toDate())
-  const formattedDate = dateObj === null ? '' : formatDate(dateObj)
-
+  const { userName, bodyWeight, lift, reps, maxLift, strengthLevel, created_at, id } = archive
+  const formattedDate = formatDate(created_at)
 
   return (
     <ListItem divider={true}>
@@ -38,17 +40,53 @@ const ArchiveItem = ({ archive }) => {
             className={classes.inline}
             color="textPrimary"
           >
-            <ul>
-              <li>body weight: {bodyWeight} kg</li>
-              <li>lift: {lift} kg</li>
-              <li>reps: {reps}</li>
-              <li>max lift: {maxLift} kg</li>
-              <li>strength level: {strengthLevel}</li>
-              <li>created_at: {formattedDate}</li>
-            </ul>
+            <List dense>
+              <ListItem>
+                <ListItemText
+                  primary={`Body Weight: ${bodyWeight} kg`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Lift: ${lift} kg`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Reps: ${reps}`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Max Lift: ${maxLift} kg`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Strength Level: ${strengthLevel}`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Created_at: ${formattedDate}`}
+                />
+              </ListItem>
+            </List>
           </Typography>
         }
       />
+      <IconButton onClick={
+        async () => {
+          try {
+            await deleteReport(id)
+            setArchives([])
+            setIsSubmit(true)
+          } catch (error) {
+            alert(error.message)
+          }
+        }}>
+        <DeleteIcon />
+      </IconButton>
     </ListItem>
   )
 }
