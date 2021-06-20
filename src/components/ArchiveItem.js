@@ -20,8 +20,8 @@ const ArchiveItem = ({ archive }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(archive.userName)
   const { userName, bodyWeight, lift, reps, maxLift, strengthLevel, created_at } = archive
-  const dateObj = new Date(created_at.toDate())
-  const formattedDate = formatDate(dateObj)
+  const dateObj = (created_at === null) ? null : new Date(created_at.toDate())
+  const formattedDate = dateObj === null ? '' : formatDate(dateObj)
 
 
   return (

@@ -16,11 +16,11 @@ const Archives = ({ archives }) => {
   return (
     <List className={classes.root}>
       {
-        archives.map((archive) => {
+        archives.map((archive, index) => {
           return (
             <ArchiveItem
               archive={archive}
-              key={archive.created_at.seconds}
+              key={index}
             />
           )
         })

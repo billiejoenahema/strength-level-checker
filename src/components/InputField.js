@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
       gridRow: 2,
     },
   },
+  input: {
+    marginTop: '16px'
+  },
   stickToBottom: {
     width: '100%',
     position: 'fixed',
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const InputField = ({ user }) => {
+const InputField = ({ user, setIsPosted, setArchives }) => {
 
   const [report, setReport] = useState({
     exercise: 'bench press',
@@ -58,7 +61,7 @@ const InputField = ({ user }) => {
   return (
     <Box className={classes.stickToBottom} boxShadow={2} >
       <form className={classes.root} noValidate autoComplete="off">
-        <Grid container>
+        <Grid container alignItems="center">
           <Grid item xs={1}>
             <Avatar src={avatarPath} />
             <span>{user.userName}</span>
@@ -83,7 +86,7 @@ const InputField = ({ user }) => {
               required
               label="Lifted"
               id="standard-start-adornment"
-              margin="normal"
+              margin="dense"
               InputProps={{
                 endAdornment: <InputAdornment position="end">kg</InputAdornment>,
               }}
@@ -108,6 +111,7 @@ const InputField = ({ user }) => {
               id="standard-read-only-input"
               label="Your Max Lift"
               value={report.maxLift}
+              margin="dense"
               InputProps={{
                 readOnly: true,
               }}
@@ -116,6 +120,7 @@ const InputField = ({ user }) => {
               id="standard-read-only-input"
               label="Your Strength Level"
               value={report.strengthLevel}
+              margin="dense"
               InputProps={{
                 readOnly: true,
               }}
@@ -126,6 +131,8 @@ const InputField = ({ user }) => {
               report={report}
               setReport={setReport}
               user={user}
+              setIsPosted={setIsPosted}
+              setArchives={setArchives}
             />
           </Grid>
         </Grid>
