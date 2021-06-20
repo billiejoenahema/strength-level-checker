@@ -1,5 +1,6 @@
 // format Date object
 export function formatDate(createdAt) {
+  if (createdAt === null) return
   const dateObj = new Date(createdAt.toDate())
   const year = dateObj.getFullYear();
   const month = ('00' + (dateObj.getMonth() + 1)).slice(-2)
