@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { gravatarPath } from '../gravatar'
+import HideOnScroll from './HideOnScroll'
 import RepsSelector from './RepsSelector'
 import ReportSubmitButton from './ReportSubmitButton'
 import { getStrengthLevel } from '../getStrengthLevel'
 import { getMaxLift } from '../getMaxLift'
 import {
   makeStyles,
-  useScrollTrigger,
-  Slide,
   Box,
   Grid,
   Avatar,
@@ -26,9 +25,6 @@ const useStyles = makeStyles((theme) => ({
       gridRow: 2,
     },
   },
-  input: {
-    marginTop: '16px'
-  },
   stickToBottom: {
     width: '100%',
     position: 'fixed',
@@ -36,16 +32,6 @@ const useStyles = makeStyles((theme) => ({
     background: 'white',
   },
 }))
-
-const HideOnScroll = ({ children }) => {
-  const trigger = useScrollTrigger();
-
-  return (
-    <Slide appear={false} direction="up" in={!trigger}>
-      {children}
-    </Slide>
-  )
-}
 
 const InputField = ({ user, setIsSubmit, setArchives }) => {
 
