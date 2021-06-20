@@ -60,15 +60,16 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   const avatarPath = gravatarPath(user.userName)
 
   useEffect(() => {
+    console.log(report.reps)
     if (report.lift === 0 || report.reps === 0) return
     calcMaxLiftAndStrengthLevel()
-  }, [report])
+  }, [report.lift, report.reps])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
     const resultLift = getMaxLift(report)
     const judgedLevel = getStrengthLevel(resultLift, user.bodyWeight)
     setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
-  }, [])
+  })
 
   return (
     <HideOnScroll>
