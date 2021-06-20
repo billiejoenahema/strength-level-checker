@@ -28,7 +28,6 @@ const Main = () => {
           const dataList = snapshot.docs.map((doc) => {
             return { id: doc.id, ...doc.data() }
           })
-          console.log(dataList)
           setArchives(dataList)
         })
       setIsSubmit(false)
