@@ -18,28 +18,26 @@ const Main = () => {
   const classes = useStyles()
   const [user] = useState({ userName: 'Guest', bodyWeight: 70 })
   const [archives, setArchives] = useState([])
-  const [isPosted, setIsPosted] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false)
 
   useEffect(() => {
-    console.log(isPosted)
     const getCollection = async () => {
-      // 第2引数に何らかのstateを入れて、submitを検知してArchivesを再レンダリングさせる
       const reportRef = db.collection('report')
       const snapshot = await reportRef.orderBy('created_at', 'desc').get()
       const dataList = await snapshot.docs.map((doc) => {
-        return doc.data()
+        return { id: doc.id, ...doc.data() }
       })
       setArchives(dataList)
-      setIsPosted(false)
+      setIsSubmit(false)
     }
     getCollection()
-  }, [isPosted])
+  }, [isSubmit])
 
   return (
     <div className={classes.root} >
       <NavigationBar userName={user.userName} />
       <Archives archives={archives} />
-      <InputField user={user} setIsPosted={setIsPosted} setArchives={setArchives} />
+      <InputField user={user} setIsSubmit={setIsSubmit} setArchives={setArchives} />
     </div>
   )
 }

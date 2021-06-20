@@ -38,4 +38,8 @@ export const addReport = ({ userName, bodyWeight, exercise, lift, reps, maxLift,
     created_at: firebase.firestore.FieldValue.serverTimestamp()
   }, { merge: true })
 }
+export const deleteReport = (docId) => {
+  db.collection('report').doc(docId).delete()
+}
+
 export const reportRef = firebase.database().ref('report')
