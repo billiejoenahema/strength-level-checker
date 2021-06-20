@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconButton } from '@material-ui/core'
-import SendIcon from '@material-ui/icons/Send'
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter'
 import { addReport } from '../firebase'
 
 const ReportSubmitButton = ({ report, setReport, user, setIsSubmit, setArchives }) => {
@@ -31,7 +31,8 @@ const ReportSubmitButton = ({ report, setReport, user, setIsSubmit, setArchives 
           alert(error.message)
         }
       }}>
-      <SendIcon />
+      <FitnessCenterIcon color="primary" />
+
     </IconButton>
   )
 }
