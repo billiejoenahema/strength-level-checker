@@ -5,15 +5,17 @@ import ReportSubmitButton from './ReportSubmitButton'
 import { getStrengthLevel } from '../getStrengthLevel'
 import { getMaxLift } from '../getMaxLift'
 import {
+  makeStyles,
+  useScrollTrigger,
+  Slide,
+  Box,
   Grid,
   Avatar,
-  makeStyles,
   FormControl,
   InputLabel,
   NativeSelect,
   InputAdornment,
   TextField,
-  Box
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
     background: 'white',
   },
 }))
+
+const HideOnScroll = ({ children }) => {
+  const trigger = useScrollTrigger();
+
+  return (
+    <Slide appear={false} direction="up" in={!trigger}>
+      {children}
+    </Slide>
+  )
+}
 
 const InputField = ({ user, setIsSubmit, setArchives }) => {
 
@@ -59,85 +71,87 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   }, [])
 
   return (
-    <Box className={classes.stickToBottom} boxShadow={2} >
-      <form className={classes.root} noValidate autoComplete="off">
-        <Grid container alignItems="center">
-          <Grid item xs={1}>
-            <Avatar src={avatarPath} />
-            <span>{user.userName}</span>
-          </Grid>
-          <Grid item xs={10}>
-            <FormControl margin="normal">
-              <InputLabel shrink htmlFor="exercise-native-label-placeholder">
-                Exercise
-              </InputLabel>
-              <NativeSelect
-                value={report.exercise}
-                onChange={(e) => setReport({ ...report, exercise: e.target.value })}
-                inputProps={{
-                  name: 'exercise',
-                  id: 'exercise-native-label-placeholder',
+    <HideOnScroll>
+      <Box className={classes.stickToBottom} boxShadow={2} >
+        <form className={classes.root} noValidate autoComplete="off">
+          <Grid container alignItems="center">
+            <Grid item xs={1}>
+              <Avatar src={avatarPath} />
+              <span>{user.userName}</span>
+            </Grid>
+            <Grid item xs={10}>
+              <FormControl margin="normal">
+                <InputLabel shrink htmlFor="exercise-native-label-placeholder">
+                  Exercise
+                </InputLabel>
+                <NativeSelect
+                  value={report.exercise}
+                  onChange={(e) => setReport({ ...report, exercise: e.target.value })}
+                  inputProps={{
+                    name: 'exercise',
+                    id: 'exercise-native-label-placeholder',
+                  }}
+                >
+                  <option value="benchPress">Bench Press</option>
+                </NativeSelect>
+              </FormControl>
+              <TextField
+                required
+                label="Lifted"
+                id="standard-start-adornment"
+                margin="dense"
+                InputProps={{
+                  endAdornment: <InputAdornment position="end">kg</InputAdornment>,
                 }}
-              >
-                <option value="benchPress">Bench Press</option>
-              </NativeSelect>
-            </FormControl>
-            <TextField
-              required
-              label="Lifted"
-              id="standard-start-adornment"
-              margin="dense"
-              InputProps={{
-                endAdornment: <InputAdornment position="end">kg</InputAdornment>,
-              }}
-              onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
-            />
-            <FormControl margin="normal">
-              <InputLabel shrink htmlFor="reps-native-label-placeholder">
-                Reps
-              </InputLabel>
-              <NativeSelect
-                value={report.reps}
-                onChange={(e) => setReport({ ...report, reps: Number(e.target.value) })}
-                inputProps={{
-                  name: 'reps',
-                  id: 'reps-native-label-placeholder',
+                onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
+              />
+              <FormControl margin="normal">
+                <InputLabel shrink htmlFor="reps-native-label-placeholder">
+                  Reps
+                </InputLabel>
+                <NativeSelect
+                  value={report.reps}
+                  onChange={(e) => setReport({ ...report, reps: Number(e.target.value) })}
+                  inputProps={{
+                    name: 'reps',
+                    id: 'reps-native-label-placeholder',
+                  }}
+                >
+                  <RepsSelector />
+                </NativeSelect>
+              </FormControl>
+              <TextField
+                id="standard-read-only-input"
+                label="Your Max Lift"
+                value={report.maxLift}
+                margin="dense"
+                InputProps={{
+                  readOnly: true,
                 }}
-              >
-                <RepsSelector />
-              </NativeSelect>
-            </FormControl>
-            <TextField
-              id="standard-read-only-input"
-              label="Your Max Lift"
-              value={report.maxLift}
-              margin="dense"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextField
-              id="standard-read-only-input"
-              label="Your Strength Level"
-              value={report.strengthLevel}
-              margin="dense"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+              />
+              <TextField
+                id="standard-read-only-input"
+                label="Your Strength Level"
+                value={report.strengthLevel}
+                margin="dense"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <ReportSubmitButton
+                report={report}
+                setReport={setReport}
+                user={user}
+                setIsSubmit={setIsSubmit}
+                setArchives={setArchives}
+              />
+            </Grid>
           </Grid>
-          <Grid item xs={1}>
-            <ReportSubmitButton
-              report={report}
-              setReport={setReport}
-              user={user}
-              setIsSubmit={setIsSubmit}
-              setArchives={setArchives}
-            />
-          </Grid>
-        </Grid>
-      </form>
-    </Box>
+        </form>
+      </Box>
+    </HideOnScroll>
   )
 }
 
