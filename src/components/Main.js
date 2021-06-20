@@ -36,7 +36,7 @@ const Main = () => {
   return (
     <div className={classes.root} >
       <NavigationBar userName={user.userName} />
-      <Archives archives={archives} />
+      <Archives archives={archives} setIsSubmit={setIsSubmit} setArchives={setArchives} />
       <InputField user={user} setIsSubmit={setIsSubmit} setArchives={setArchives} />
     </div>
   )
