@@ -50,13 +50,13 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   useEffect(() => {
     if (report.lift === 0 || report.reps === 0) return
     calcMaxLiftAndStrengthLevel()
-  }, [report.lift, report.reps])
+  }, [report])
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
     const resultLift = getMaxLift(report)
     const judgedLevel = getStrengthLevel(resultLift, user.bodyWeight)
     setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
-  })
+  }, [])
 
   return (
     <Box className={classes.stickToBottom} boxShadow={2} >
