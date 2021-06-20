@@ -60,7 +60,6 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   const avatarPath = gravatarPath(user.userName)
 
   useEffect(() => {
-    console.log(report.reps)
     if (report.lift === 0 || report.reps === 0) return
     calcMaxLiftAndStrengthLevel()
   }, [report.lift, report.reps])
