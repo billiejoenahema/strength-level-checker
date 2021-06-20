@@ -31,8 +31,7 @@ const ReportSubmitButton = ({ report, setReport, user, setIsSubmit, setArchives 
           alert(error.message)
         }
       }}>
-      <FitnessCenterIcon color="primary" />
-
+      <FitnessCenterIcon fontSize="large" />
     </IconButton>
   )
 }
