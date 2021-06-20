@@ -16,11 +16,11 @@ const Archives = ({ archives, setArchives, setIsSubmit }) => {
   return (
     <List className={classes.root}>
       {
-        archives.map((archive, index) => {
+        archives.map((archive) => {
           return (
             <ArchiveItem
               archive={archive}
-              key={index}
+              key={archive.id}
               setArchives={setArchives}
               setIsSubmit={setIsSubmit}
             />
