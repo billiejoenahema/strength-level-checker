@@ -5,7 +5,6 @@ import InputField from './InputField'
 import Archives from './Archives'
 import { db } from '../firebase'
 
-
 const useStyles = makeStyles({
   root: {
     display: 'grid',
@@ -22,16 +21,21 @@ const Main = () => {
 
   useEffect(() => {
     const getCollection = async () => {
-      const reportRef = db.collection('report')
-      const snapshot = await reportRef.orderBy('created_at', 'desc').get()
-      const dataList = await snapshot.docs.map((doc) => {
-        return { id: doc.id, ...doc.data() }
-      })
-      setArchives(dataList)
+      await db
+        .collection('report')
+        .orderBy('created_at', 'desc')
+        .onSnapshot((snapshot) => {
+          const dataList = snapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() }
+          })
+          console.log(dataList)
+          setArchives(dataList)
+        })
       setIsSubmit(false)
     }
     getCollection()
   }, [isSubmit])
+
 
   return (
     <div className={classes.root} >
