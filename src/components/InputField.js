@@ -29,14 +29,14 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     position: 'fixed',
     bottom: 0,
-    background: 'white',
+    background: '#c5cae9',
   },
 }))
 
 const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   const [report, setReport] = useState({
-    exercise: 'bench press',
+    exercise: 'benchPress',
     lift: 0,
     reps: 0,
     maxLift: 0,
@@ -52,7 +52,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   const calcMaxLiftAndStrengthLevel = useCallback(() => {
     const resultLift = getMaxLift(report)
-    const judgedLevel = getStrengthLevel(resultLift, user.bodyWeight)
+    const judgedLevel = getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
     setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
   })
 
@@ -79,6 +79,10 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                   }}
                 >
                   <option value="benchPress">Bench Press</option>
+                  <option value="squat">Squat</option>
+                  <option value="deadLift">Dead Lift</option>
+                  <option value="shoulderPress">Shoulder Press</option>
+                  <option value="bentOverRow">Bent Over Row</option>
                 </NativeSelect>
               </FormControl>
               <TextField
