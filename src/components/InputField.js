@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { gravatarPath } from '../gravatar'
 import HideOnScroll from './HideOnScroll'
+import ExerciseSelector from './ExerciseSelector'
 import RepsSelector from './RepsSelector'
 import ReportSubmitButton from './ReportSubmitButton'
 import { getStrengthLevel } from '../getStrengthLevel'
@@ -10,9 +11,6 @@ import {
   Box,
   Grid,
   Avatar,
-  FormControl,
-  InputLabel,
-  NativeSelect,
   InputAdornment,
   TextField,
 } from '@material-ui/core'
@@ -66,25 +64,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
               <span>{user.userName}</span>
             </Grid>
             <Grid item xs={10}>
-              <FormControl margin="normal">
-                <InputLabel shrink htmlFor="exercise-native-label-placeholder">
-                  Exercise
-                </InputLabel>
-                <NativeSelect
-                  value={report.exercise}
-                  onChange={(e) => setReport({ ...report, exercise: e.target.value })}
-                  inputProps={{
-                    name: 'exercise',
-                    id: 'exercise-native-label-placeholder',
-                  }}
-                >
-                  <option value="benchPress">Bench Press</option>
-                  <option value="squat">Squat</option>
-                  <option value="deadLift">Dead Lift</option>
-                  <option value="shoulderPress">Shoulder Press</option>
-                  <option value="bentOverRow">Bent Over Row</option>
-                </NativeSelect>
-              </FormControl>
+              <ExerciseSelector report={report} setReport={setReport} />
               <TextField
                 required
                 label="Lifted"
@@ -95,21 +75,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                 }}
                 onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
               />
-              <FormControl margin="normal">
-                <InputLabel shrink htmlFor="reps-native-label-placeholder">
-                  Reps
-                </InputLabel>
-                <NativeSelect
-                  value={report.reps}
-                  onChange={(e) => setReport({ ...report, reps: Number(e.target.value) })}
-                  inputProps={{
-                    name: 'reps',
-                    id: 'reps-native-label-placeholder',
-                  }}
-                >
-                  <RepsSelector />
-                </NativeSelect>
-              </FormControl>
+              <RepsSelector report={report} setReport={setReport} />
               <TextField
                 id="standard-read-only-input"
                 label="Your Max Lift"
