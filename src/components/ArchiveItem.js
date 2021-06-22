@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PaperComponent from './PaperComponent'
 import { makeStyles } from '@material-ui/core/styles'
 import { gravatarPath } from '../gravatar'
@@ -30,8 +30,17 @@ const useStyles = makeStyles(() => ({
 const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(archive.userName)
-  const { userName, bodyWeight, lift, reps, maxLift, strengthLevel, created_at, id } = archive
-  const [open, setOpen] = React.useState(false)
+  const { userName,
+    bodyWeight,
+    exercise,
+    lift,
+    reps,
+    maxLift,
+    strengthLevel,
+    created_at,
+    id
+  } = archive
+  const [open, setOpen] = useState(false)
   const formattedDate = formatDate(created_at)
 
   const handleClickOpen = () => {
@@ -60,6 +69,11 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
               <ListItem>
                 <ListItemText
                   primary={`Body Weight: ${bodyWeight} kg`}
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText
+                  primary={`Exercise: ${exercise}`}
                 />
               </ListItem>
               <ListItem>
