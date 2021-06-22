@@ -24,7 +24,7 @@ const Main = () => {
       await db
         .collection('report')
         .orderBy('created_at', 'desc')
-        .limitToLast(10)
+        .limit(10)
         .onSnapshot((snapshot) => {
           const dataList = snapshot.docs.map((doc) => {
             return { id: doc.id, ...doc.data() }
