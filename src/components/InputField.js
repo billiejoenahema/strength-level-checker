@@ -77,7 +77,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
               />
               <RepsSelector report={report} setReport={setReport} />
               <TextField
-                id="standard-read-only-input"
+                id="max-lift-input"
                 label="Your Max Lift"
                 value={report.maxLift}
                 margin="dense"
@@ -86,7 +86,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                 }}
               />
               <TextField
-                id="standard-read-only-input"
+                id="strength-level-input"
                 label="Your Strength Level"
                 value={report.strengthLevel}
                 margin="dense"
