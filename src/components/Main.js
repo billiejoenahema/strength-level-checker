@@ -18,11 +18,16 @@ const Main = () => {
   const [user] = useState({ userName: 'Guest', bodyWeight: 70 })
   const [archives, setArchives] = useState([])
   const [isSubmit, setIsSubmit] = useState(false)
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
+
     const getCollection = async () => {
-      await db
-        .collection('report')
+      let reportRef = await db.collection('report')
+      if (filter !== 'all') {
+        reportRef = reportRef.where('exercise', '==', filter)
+      }
+      reportRef
         .orderBy('created_at', 'desc')
         .limit(10)
         .onSnapshot((snapshot) => {
@@ -34,12 +39,12 @@ const Main = () => {
       setIsSubmit(false)
     }
     getCollection()
-  }, [isSubmit])
+  }, [isSubmit, filter])
 
 
   return (
     <div className={classes.root} >
-      <NavigationBar userName={user.userName} />
+      <NavigationBar userName={user.userName} filter={filter} setFilter={setFilter} />
       <Archives archives={archives} setIsSubmit={setIsSubmit} setArchives={setArchives} />
       <InputField user={user} setIsSubmit={setIsSubmit} setArchives={setArchives} />
     </div>
