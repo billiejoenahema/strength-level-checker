@@ -24,7 +24,6 @@ const firebaseConfig = {
 
 export const firebaseApp = firebase.initializeApp(firebaseConfig)
 export const db = firebaseApp.firestore()
-export const reportRef = firebase.database().ref('report')
 
 export const addReport = ({ userName, bodyWeight, exercise, lift, reps, maxLift, strengthLevel }) => {
   const docId = db.collection('report').doc().id

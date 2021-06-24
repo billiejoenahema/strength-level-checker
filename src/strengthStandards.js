@@ -41,6 +41,7 @@ export const SQUAT_TABLE = [
   { weight: 135, criterion: [130, 165, 206, 252, 299] },
   { weight: 140, criterion: [135, 171, 212, 258, 307] }
 ]
+
 export const DEAD_LIFT_TABLE = [
   { weight: 50, criterion: [43, 64, 91, 123, 158] },
   { weight: 55, criterion: [50, 73, 102, 136, 173] },
@@ -62,6 +63,7 @@ export const DEAD_LIFT_TABLE = [
   { weight: 135, criterion: [151, 189, 234, 284, 336] },
   { weight: 140, criterion: [156, 195, 241, 291, 344] }
 ]
+
 export const SHOULDER_PRESS_TABLE = [
   { weight: 50, criterion: [14, 24, 36, 51, 68] },
   { weight: 55, criterion: [18, 28, 41, 57, 75] },
@@ -83,6 +85,7 @@ export const SHOULDER_PRESS_TABLE = [
   { weight: 135, criterion: [61, 79, 101, 125, 151] },
   { weight: 140, criterion: [63, 82, 104, 129, 154] }
 ]
+
 export const BENT_OVER_ROW_TABLE = [
   { weight: 50, criterion: [21, 34, 50, 71, 93] },
   { weight: 55, criterion: [25, 39, 57, 78, 102] },
