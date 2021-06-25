@@ -56,7 +56,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   return (
     <HideOnScroll>
-      <Box className={classes.stickToBottom} boxShadow={2} >
+      <Box className={classes.stickToBottom} boxShadow={2} id="stick-bottom" >
         <form className={classes.root} noValidate autoComplete="off">
           <Grid container alignItems="center">
             <Grid item xs={1}>
@@ -65,6 +65,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
             </Grid>
             <Grid item xs={10}>
               <ExerciseSelector report={report} setReport={setReport} />
+              {/* input lift */}
               <TextField
                 required
                 label="Lifted"
@@ -75,7 +76,9 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                 }}
                 onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
               />
+              {/* select reps */}
               <RepsSelector report={report} setReport={setReport} />
+              {/* display max lift */}
               <TextField
                 id="max-lift-input"
                 label="Your Max Lift"
@@ -85,6 +88,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                   readOnly: true,
                 }}
               />
+              {/* display strength level */}
               <TextField
                 id="strength-level-input"
                 label="Your Strength Level"

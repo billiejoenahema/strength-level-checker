@@ -3,7 +3,7 @@ import { useScrollTrigger, Slide } from '@material-ui/core'
 
 const HideOnScroll = ({ children }) => {
   const trigger = useScrollTrigger()
-  const direction = (children.props.className === "makeStyles-stickToBottom-7")
+  const direction = (children.props.id === 'stick-bottom')
     ? 'up' : 'down'
 
   return (
