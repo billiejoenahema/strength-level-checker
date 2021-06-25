@@ -25,6 +25,12 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  inputLabel: {
+    color: '#fff',
+  },
+  select: {
+    color: '#fff',
+  },
 }))
 
 const NavigationBar = ({ userName, filter, setFilter }) => {
@@ -42,8 +48,10 @@ const NavigationBar = ({ userName, filter, setFilter }) => {
               Strength Level Checker
             </Typography>
             <FormControl className={classes.formControl}>
-              <InputLabel id="exercise-select-label">Exercise</InputLabel>
+              <InputLabel className={classes.inputLabel}
+                id="exercise-select-label">Exercise</InputLabel>
               <Select
+                className={classes.select}
                 labelId="exercise-select-label"
                 id="exercise-select"
                 value={filter}
