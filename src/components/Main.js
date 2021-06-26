@@ -21,7 +21,6 @@ const Main = () => {
   const [filter, setFilter] = useState('all')
 
   useEffect(() => {
-
     const getCollection = async () => {
       let reportRef = await db.collection('report')
       if (filter !== 'all') {

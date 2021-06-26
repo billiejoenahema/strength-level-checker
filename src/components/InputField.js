@@ -11,6 +11,7 @@ import {
   Box,
   Grid,
   Avatar,
+  Typography,
   InputAdornment,
   TextField,
 } from '@material-ui/core'
@@ -22,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
       gridRow: 2,
     },
+  },
+  avatar: {
+    margin: 'auto',
   },
   stickToBottom: {
     width: '100%',
@@ -60,8 +64,8 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
         <form className={classes.root} noValidate autoComplete="off">
           <Grid container alignItems="center">
             <Grid item xs={1}>
-              <Avatar src={avatarPath} />
-              <span>{user.userName}</span>
+              <Avatar src={avatarPath} className={classes.avatar} />
+              <Typography align="center" >{user.userName}</Typography>
             </Grid>
             <Grid item xs={10}>
               <ExerciseSelector report={report} setReport={setReport} />
