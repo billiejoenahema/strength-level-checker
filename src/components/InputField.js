@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { gravatarPath } from '../gravatar'
 import HideOnScroll from './HideOnScroll'
 import ExerciseSelector from './ExerciseSelector'
@@ -49,14 +49,14 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   useEffect(() => {
     if (report.lift === 0 || report.reps === 0) return
+    const calcMaxLiftAndStrengthLevel = () => {
+      const resultLift = getMaxLift(report)
+      const judgedLevel = getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
+      setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
+    }
     calcMaxLiftAndStrengthLevel()
   }, [report.lift, report.reps])
 
-  const calcMaxLiftAndStrengthLevel = useCallback(() => {
-    const resultLift = getMaxLift(report)
-    const judgedLevel = getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
-    setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
-  })
 
   return (
     <HideOnScroll>
