@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavigationBar = ({ userName, filter, setFilter }) => {
+const NavigationBar = ({ userName, filter, setFilter, setOpen }) => {
   const classes = useStyles()
 
   return (
@@ -65,7 +65,7 @@ const NavigationBar = ({ userName, filter, setFilter }) => {
                 <MenuItem value="ベントオーバーロウ">ベントオーバーロウ</MenuItem>
               </Select>
             </FormControl>
-            <Button color="inherit">{userName}</Button>
+            <Button color="inherit" onClick={() => { setOpen(true) }}>{userName}</Button>
             <Button color="inherit" onClick={() => firebaseApp.auth().signOut()}>ログアウト</Button>
           </Toolbar>
         </AppBar>

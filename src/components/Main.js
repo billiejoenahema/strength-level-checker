@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import NavigationBar from './NavigationBar'
 import InputField from './InputField'
+import MyData from './MyData'
 import Archives from './Archives'
 import { db } from '../firebase'
 
@@ -19,6 +20,7 @@ const Main = () => {
   const [archives, setArchives] = useState([])
   const [isSubmit, setIsSubmit] = useState(false)
   const [filter, setFilter] = useState('all')
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const getCollection = async () => {
@@ -42,7 +44,8 @@ const Main = () => {
 
   return (
     <div className={classes.root} >
-      <NavigationBar userName={user.userName} filter={filter} setFilter={setFilter} />
+      <NavigationBar userName={user.userName} filter={filter} setFilter={setFilter} setOpen={setOpen} />
+      <MyData archives={archives} open={open} setOpen={setOpen} />
       <Archives archives={archives} setIsSubmit={setIsSubmit} setArchives={setArchives} />
       <InputField user={user} setIsSubmit={setIsSubmit} setArchives={setArchives} />
     </div>
