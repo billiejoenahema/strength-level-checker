@@ -5,7 +5,7 @@ const RepsSelector = ({ report, setReport }) => {
   return (
     <FormControl margin="normal">
       <InputLabel shrink htmlFor="reps-native-label-placeholder">
-        Reps
+        反復回数
       </InputLabel>
       <NativeSelect
         value={report.reps}
@@ -16,17 +16,17 @@ const RepsSelector = ({ report, setReport }) => {
         }}
       >
         <option value={0}></option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-        <option value={6}>6</option>
-        <option value={7}>7</option>
-        <option value={8}>8</option>
-        <option value={9}>9</option>
-        <option value={10}>10</option>
-        <option value={11}>11</option>
-        <option value={12}>12</option>
+        <option value={2}>2回</option>
+        <option value={3}>3回</option>
+        <option value={4}>4回</option>
+        <option value={5}>5回</option>
+        <option value={6}>6回</option>
+        <option value={7}>7回</option>
+        <option value={8}>8回</option>
+        <option value={9}>9回</option>
+        <option value={10}>10回</option>
+        <option value={11}>11回</option>
+        <option value={12}>12回</option>
       </NativeSelect>
     </FormControl>
 

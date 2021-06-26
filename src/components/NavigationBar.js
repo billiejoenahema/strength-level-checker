@@ -49,7 +49,7 @@ const NavigationBar = ({ userName, filter, setFilter }) => {
             </Typography>
             <FormControl className={classes.formControl}>
               <InputLabel className={classes.inputLabel}
-                id="exercise-select-label">Exercise</InputLabel>
+                id="exercise-select-label">種目で絞り込み</InputLabel>
               <Select
                 className={classes.select}
                 labelId="exercise-select-label"
@@ -57,16 +57,16 @@ const NavigationBar = ({ userName, filter, setFilter }) => {
                 value={filter}
                 onChange={(e) => { setFilter(e.target.value) }}
               >
-                <MenuItem value="all">All</MenuItem>
-                <MenuItem value="benchPress">Bench Press</MenuItem>
-                <MenuItem value="squat">Squat</MenuItem>
-                <MenuItem value="deadLift">Dead Lift</MenuItem>
-                <MenuItem value="shoulderPress">Shoulder Press</MenuItem>
-                <MenuItem value="bentOverRow">Bent Over Row</MenuItem>
+                <MenuItem value="all">すべての種目</MenuItem>
+                <MenuItem value="ベンチプレス">ベンチプレス</MenuItem>
+                <MenuItem value="スクワット">スクワット</MenuItem>
+                <MenuItem value="デッドリフト">デッドリフト</MenuItem>
+                <MenuItem value="ショルダープレス">ショルダープレス</MenuItem>
+                <MenuItem value="ベントオーバーロウ">ベントオーバーロウ</MenuItem>
               </Select>
             </FormControl>
-            <Button color="inherit">user: {userName}</Button>
-            <Button color="inherit" onClick={() => firebaseApp.auth().signOut()}>logout</Button>
+            <Button color="inherit">{userName}</Button>
+            <Button color="inherit" onClick={() => firebaseApp.auth().signOut()}>ログアウト</Button>
           </Toolbar>
         </AppBar>
       </HideOnScroll>

@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   const [report, setReport] = useState({
-    exercise: 'benchPress',
+    exercise: 'ベンチプレス',
     lift: 0,
     reps: 0,
     maxLift: 0,
@@ -72,7 +72,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
               {/* input lift */}
               <TextField
                 required
-                label="Lifted"
+                label="挙上重量"
                 id="standard-start-adornment"
                 margin="dense"
                 InputProps={{
@@ -85,7 +85,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
               {/* display max lift */}
               <TextField
                 id="max-lift-input"
-                label="Your Max Lift"
+                label="最大挙上重量"
                 value={report.maxLift}
                 margin="dense"
                 InputProps={{
@@ -95,7 +95,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
               {/* display strength level */}
               <TextField
                 id="strength-level-input"
-                label="Your Strength Level"
+                label="称号"
                 value={report.strengthLevel}
                 margin="dense"
                 InputProps={{

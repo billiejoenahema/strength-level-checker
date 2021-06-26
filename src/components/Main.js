@@ -40,7 +40,6 @@ const Main = () => {
     getCollection()
   }, [isSubmit, filter])
 
-
   return (
     <div className={classes.root} >
       <NavigationBar userName={user.userName} filter={filter} setFilter={setFilter} />

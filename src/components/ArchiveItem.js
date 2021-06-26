@@ -68,37 +68,37 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
             <List dense>
               <ListItem>
                 <ListItemText
-                  primary={`Body Weight: ${bodyWeight} kg`}
+                  primary={`体重: ${bodyWeight} kg`}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`Exercise: ${exercise}`}
+                  primary={`種目: ${exercise}`}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`Lift: ${lift} kg`}
+                  primary={`挙上重量: ${lift} kg`}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`Reps: ${reps}`}
+                  primary={`反復回数: ${reps}`}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`Max Lift: ${maxLift} kg`}
+                  primary={`最大挙上重量: ${maxLift} kg`}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`Strength Level: ${strengthLevel}`}
+                  primary={`称号: ${strengthLevel}`}
                 />
               </ListItem>
               <ListItem>
                 <ListItemText
-                  primary={`Created_at: ${formattedDate}`}
+                  primary={`投稿日時: ${formattedDate}`}
                 />
               </ListItem>
             </List>

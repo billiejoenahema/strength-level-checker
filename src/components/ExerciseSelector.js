@@ -5,7 +5,7 @@ const ExerciseSelector = ({ report, setReport }) => {
   return (
     <FormControl margin="normal">
       <InputLabel shrink htmlFor="exercise-native-label-placeholder">
-        Exercise
+        種目
       </InputLabel>
       <NativeSelect
         value={report.exercise}
@@ -15,11 +15,11 @@ const ExerciseSelector = ({ report, setReport }) => {
           id: 'exercise-native-label-placeholder',
         }}
       >
-        <option value="benchPress">Bench Press</option>
-        <option value="squat">Squat</option>
-        <option value="deadLift">Dead Lift</option>
-        <option value="shoulderPress">Shoulder Press</option>
-        <option value="bentOverRow">Bent Over Row</option>
+        <option value="ベンチプレス">ベンチプレス</option>
+        <option value="スクワット">スクワット</option>
+        <option value="デッドリフト">デッドリフト</option>
+        <option value="ショルダープレス">ショルダープレス</option>
+        <option value="ベントオーバーロウ">ベントオーバーロウ</option>
       </NativeSelect>
     </FormControl>
   )
