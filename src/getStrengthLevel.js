@@ -40,8 +40,9 @@ export const getStrengthLevel = (exercise, maxLift, bodyWeight) => {
   exerciseTable.forEach((row) => {
     if (row.weight !== closestValue) return
     const criteriaWeight = row.criterion.find((criteria) => {
-      return (maxLift <= criteria)
+      return (maxLift < criteria)
     })
+    console.log(criteriaWeight)
     const criteriaIndex = row.criterion.indexOf(criteriaWeight)
     const strengthIndex = (criteriaIndex === 0) ? criteriaIndex : criteriaIndex - 1
 
