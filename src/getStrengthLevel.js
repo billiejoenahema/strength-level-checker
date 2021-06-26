@@ -11,19 +11,19 @@ export const getStrengthLevel = (exercise, maxLift, bodyWeight) => {
   let exerciseTable = ''
 
   switch (exercise) {
-    case 'benchPress':
+    case 'ベンチプレス':
       exerciseTable = BENCH_PRESS_TABLE
       break
-    case 'squat':
+    case 'スクワット':
       exerciseTable = SQUAT_TABLE
       break
-    case 'deadLift':
+    case 'デッドリフト':
       exerciseTable = DEAD_LIFT_TABLE
       break
-    case 'shoulderPress':
+    case 'ショルダープレス':
       exerciseTable = SHOULDER_PRESS_TABLE
       break
-    case 'bentOverRow':
+    case 'ベントオーバーロウ':
       exerciseTable = BENT_OVER_ROW_TABLE
       break
     default:
@@ -35,6 +35,7 @@ export const getStrengthLevel = (exercise, maxLift, bodyWeight) => {
   const closestValue = bodyWeightColumn.reduce((prev, curr) => {
     return (Math.abs(curr - bodyWeight) < Math.abs(prev - bodyWeight) ? curr : prev)
   })
+
   let strengthLevel = ''
   exerciseTable.forEach((row) => {
     if (row.weight !== closestValue) return
@@ -42,25 +43,23 @@ export const getStrengthLevel = (exercise, maxLift, bodyWeight) => {
       return (maxLift <= criteria)
     })
     const criteriaIndex = row.criterion.indexOf(criteriaWeight)
+    const strengthIndex = (criteriaIndex === 0) ? criteriaIndex : criteriaIndex - 1
 
-    switch (criteriaIndex) {
+    switch (strengthIndex) {
       case 0:
-        strengthLevel = 'Beginner'
+        strengthLevel = 'ビギナー'
         break
       case 1:
-        strengthLevel = 'Novice'
+        strengthLevel = '初級者'
         break
       case 2:
-        strengthLevel = 'Intermediate'
+        strengthLevel = '中級者'
         break
       case 3:
-        strengthLevel = 'Advanced'
-        break
-      case 4:
-        strengthLevel = 'Elite'
+        strengthLevel = '上級者'
         break
       default:
-        strengthLevel = 'unKnown'
+        strengthLevel = 'エリート'
     }
   })
   return strengthLevel
