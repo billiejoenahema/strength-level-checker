@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormControl, InputLabel, NativeSelect } from '@material-ui/core'
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
 const RepsSelector = ({ report, setReport }) => {
   return (
@@ -7,7 +7,7 @@ const RepsSelector = ({ report, setReport }) => {
       <InputLabel shrink htmlFor="reps-native-label-placeholder">
         反復回数
       </InputLabel>
-      <NativeSelect
+      <Select
         value={report.reps}
         onChange={(e) => setReport({ ...report, reps: Number(e.target.value) })}
         inputProps={{
@@ -15,19 +15,19 @@ const RepsSelector = ({ report, setReport }) => {
           id: 'reps-native-label-placeholder',
         }}
       >
-        <option value={0}></option>
-        <option value={2}>2回</option>
-        <option value={3}>3回</option>
-        <option value={4}>4回</option>
-        <option value={5}>5回</option>
-        <option value={6}>6回</option>
-        <option value={7}>7回</option>
-        <option value={8}>8回</option>
-        <option value={9}>9回</option>
-        <option value={10}>10回</option>
-        <option value={11}>11回</option>
-        <option value={12}>12回</option>
-      </NativeSelect>
+        <MenuItem value={0}></MenuItem>
+        <MenuItem value={2}>2回</MenuItem>
+        <MenuItem value={3}>3回</MenuItem>
+        <MenuItem value={4}>4回</MenuItem>
+        <MenuItem value={5}>5回</MenuItem>
+        <MenuItem value={6}>6回</MenuItem>
+        <MenuItem value={7}>7回</MenuItem>
+        <MenuItem value={8}>8回</MenuItem>
+        <MenuItem value={9}>9回</MenuItem>
+        <MenuItem value={10}>10回</MenuItem>
+        <MenuItem value={11}>11回</MenuItem>
+        <MenuItem value={12}>12回</MenuItem>
+      </Select>
     </FormControl>
 
   )

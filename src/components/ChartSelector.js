@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormControl, InputLabel, NativeSelect } from '@material-ui/core'
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
 
 const ChartSelector = ({ chart, setChart }) => {
   return (
@@ -7,7 +7,7 @@ const ChartSelector = ({ chart, setChart }) => {
       <InputLabel shrink htmlFor="exercise-native-label-placeholder">
         種目
       </InputLabel>
-      <NativeSelect
+      <Select
         value={chart}
         onChange={(e) => setChart(e.target.value)}
         inputProps={{
@@ -15,12 +15,12 @@ const ChartSelector = ({ chart, setChart }) => {
           id: 'chart-native-label-placeholder',
         }}
       >
-        <option value="ベンチプレス">ベンチプレス</option>
-        <option value="スクワット">スクワット</option>
-        <option value="デッドリフト">デッドリフト</option>
-        <option value="ショルダープレス">ショルダープレス</option>
-        <option value="ベントオーバーロウ">ベントオーバーロウ</option>
-      </NativeSelect>
+        <MenuItem value="ベンチプレス">ベンチプレス</MenuItem>
+        <MenuItem value="スクワット">スクワット</MenuItem>
+        <MenuItem value="デッドリフト">デッドリフト</MenuItem>
+        <MenuItem value="ショルダープレス">ショルダープレス</MenuItem>
+        <MenuItem value="ベントオーバーロウ">ベントオーバーロウ</MenuItem>
+      </Select>
     </FormControl>
   )
 }
