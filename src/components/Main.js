@@ -35,6 +35,7 @@ const Main = () => {
           const dataList = snapshot.docs.map((doc) => {
             return { id: doc.id, ...doc.data() }
           })
+          // 日付が新しい順に並べ替え
           const sortedDataList = dataList.sort((a, b) => {
             return b.created_at - a.created_at
           })

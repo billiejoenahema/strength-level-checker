@@ -49,9 +49,9 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
 
   useEffect(() => {
     if (report.lift === 0 || report.reps === 0) return
-    const calcMaxLiftAndStrengthLevel = () => {
-      const resultLift = getMaxLift(report)
-      const judgedLevel = getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
+    const calcMaxLiftAndStrengthLevel = async () => {
+      const resultLift = await getMaxLift(report)
+      const judgedLevel = await getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
       setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
     }
     calcMaxLiftAndStrengthLevel()
