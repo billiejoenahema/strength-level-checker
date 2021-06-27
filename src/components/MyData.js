@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import ChartSelector from './ChartSelector'
 import { makeStyles, Modal, Backdrop, Fade } from '@material-ui/core'
 import {
   LineChart,
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MyData = ({ archives, open, setOpen }) => {
   const classes = useStyles()
+  const [chart, setChart] = useState('ベンチプレス')
 
   archives.forEach((archive) => {
     // m/dの形にフォーマットしたdateをarchivesに追加する
@@ -34,7 +36,7 @@ const MyData = ({ archives, open, setOpen }) => {
   })
 
   const data = archives.filter((item) => {
-    return item.exercise === 'ベンチプレス'
+    return item.exercise === chart
   })
 
   return (
@@ -53,6 +55,7 @@ const MyData = ({ archives, open, setOpen }) => {
       <Fade in={open}>
         <div className={classes.paper}>
           <h2 id="transition-modal-title">My Data</h2>
+          <ChartSelector chart={chart} setChart={setChart} />
           <LineChart
             width={500}
             height={300}
