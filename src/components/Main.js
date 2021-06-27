@@ -29,13 +29,16 @@ const Main = () => {
         reportRef = reportRef.where('exercise', '==', filter)
       }
       reportRef
-        .orderBy('created_at', 'desc')
         .limit(10)
+        .orderBy('created_at', 'desc')
         .onSnapshot((snapshot) => {
           const dataList = snapshot.docs.map((doc) => {
             return { id: doc.id, ...doc.data() }
           })
-          setArchives(dataList)
+          const sortedDataList = dataList.sort((a, b) => {
+            return b.created_at - a.created_at
+          })
+          setArchives(sortedDataList)
         })
       setIsSubmit(false)
     }
