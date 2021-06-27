@@ -43,14 +43,6 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
   const [open, setOpen] = useState(false)
   const formattedDate = formatDate(created_at)
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
-
   return (
     <ListItem divider={true}>
       <ListItemAvatar>
@@ -105,12 +97,12 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
           </Typography>
         }
       />
-      <IconButton onClick={handleClickOpen}>
+      <IconButton onClick={() => { setOpen(true) }}>
         <DeleteIcon />
       </IconButton>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={() => { setOpen(false) }}
         PaperComponent={PaperComponent}
         aria-labelledby="draggable-dialog-title"
       >
@@ -123,7 +115,7 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          <Button autoFocus onClick={() => { setOpen(true) }} color="primary">
             Cancel
           </Button>
           <Button color="primary" onClick={
