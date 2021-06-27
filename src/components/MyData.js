@@ -37,27 +37,29 @@ const useStyles = makeStyles((theme) => ({
 const MyData = ({ archives, open, setOpen }) => {
   const classes = useStyles()
   const [chart, setChart] = useState('ベンチプレス')
-
-  archives.forEach((archive) => {
+  const sortedArchives = archives.sort((a, b) => {
+    return a.created_at - b.created_at
+  })
+  sortedArchives.forEach((archive) => {
     // m/dの形にフォーマットしたdateをarchivesに追加する
     archive['date'] = formatChartDate(archive.created_at)
   })
 
-  const data = archives.filter((item) => {
+  const data = sortedArchives.filter((item) => {
     return item.exercise === chart
   })
 
   return (
     <Fade in={open}>
       <div>
-        <Dialog aria-labelledby="chart-dialog-title" open={open}>
-          <DialogTitle disableTypography className={classes.root}>
+        <Dialog aria-labelledby="chart-dialog-title" open={open} onClose={() => { setOpen(false) }}>
+          <DialogTitle className={classes.root}>
             <Typography variant="h6">My Data</Typography>
             <IconButton aria-label="close" className={classes.closeButton} onClick={() => { setOpen(false) }}>
               <CloseIcon />
             </IconButton>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent dividers>
             <ChartSelector chart={chart} setChart={setChart} />
             <LineChart
               width={500}
