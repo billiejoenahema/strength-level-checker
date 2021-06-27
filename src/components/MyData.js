@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import ChartSelector from './ChartSelector'
-import { makeStyles, Modal, Backdrop, Fade } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
+import {
+  makeStyles,
+  Fade,
+  IconButton,
+  Dialog,
+  Typography,
+  DialogTitle,
+  DialogContent
+} from '@material-ui/core'
 import {
   LineChart,
   Line,
@@ -8,21 +17,20 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
-  // ResponsiveContainer
+  Legend
 } from 'recharts'
 import { formatChartDate } from '../formatChartDate'
 
 const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   },
 }))
 
@@ -40,43 +48,39 @@ const MyData = ({ archives, open, setOpen }) => {
   })
 
   return (
-    <Modal
-      aria-labelledby="transition-modal-title"
-      aria-describedby="transition-modal-description"
-      className={classes.modal}
-      open={open}
-      onClose={() => { setOpen(false) }}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={open}>
-        <div className={classes.paper}>
-          <h2 id="transition-modal-title">My Data</h2>
-          <ChartSelector chart={chart} setChart={setChart} />
-          <LineChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="maxLift" stroke="#8884d8" activeDot={{ r: 8 }} />
-          </LineChart>
-        </div>
-      </Fade>
-    </Modal>
+    <Fade in={open}>
+      <div>
+        <Dialog aria-labelledby="chart-dialog-title" open={open}>
+          <DialogTitle disableTypography className={classes.root}>
+            <Typography variant="h6">My Data</Typography>
+            <IconButton aria-label="close" className={classes.closeButton} onClick={() => { setOpen(false) }}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <ChartSelector chart={chart} setChart={setChart} />
+            <LineChart
+              width={500}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="maxLift" stroke="#8884d8" activeDot={{ r: 8 }} />
+            </LineChart>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </Fade>
   )
 }
 export default MyData
