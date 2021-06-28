@@ -100,6 +100,7 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
       <IconButton onClick={() => { setOpen(true) }}>
         <DeleteIcon />
       </IconButton>
+      {/* delete button dialog */}
       <Dialog
         open={open}
         onClose={() => { setOpen(false) }}
