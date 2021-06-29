@@ -116,7 +116,7 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={() => { setOpen(true) }} color="primary">
+          <Button autoFocus onClick={() => { setOpen(false) }} color="primary">
             Cancel
           </Button>
           <Button color="primary" onClick={
