@@ -37,8 +37,6 @@ const useStyles = makeStyles((theme) => ({
 const MyData = ({ archives, open, setOpen }) => {
   const classes = useStyles()
   const [chart, setChart] = useState('ベンチプレス')
-  console.log(archives)
-
 
   // 日付が古い順に並び替え
   const sortedArchives = Array.from(archives).sort((a, b) => {
