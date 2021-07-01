@@ -19,14 +19,14 @@ const Main = () => {
   const [user] = useState({ userName: 'Guest', bodyWeight: 70 })
   const [archives, setArchives] = useState([])
   const [isSubmit, setIsSubmit] = useState(false)
-  const [filter, setFilter] = useState('all')
+  const [refine, setRefine] = useState('all')
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     const getCollection = async () => {
       let reportRef = await db.collection('report')
-      if (filter !== 'all') {
-        reportRef = reportRef.where('exercise', '==', filter)
+      if (refine !== 'all') {
+        reportRef = reportRef.where('exercise', '==', refine)
       }
       reportRef
         .limit(10)
@@ -44,12 +44,12 @@ const Main = () => {
       setIsSubmit(false)
     }
     getCollection()
-  }, [isSubmit, filter])
+  }, [isSubmit, refine])
 
   return (
     <div className={classes.root} >
-      <NavigationBar userName={user.userName} filter={filter} setFilter={setFilter} setOpen={setOpen} />
-      <MyData archives={archives} open={open} setOpen={setOpen} />
+      <NavigationBar userName={user.userName} refine={refine} setRefine={setRefine} setOpen={setOpen} />
+      <MyData open={open} setOpen={setOpen} />
       <Archives archives={archives} setIsSubmit={setIsSubmit} setArchives={setArchives} />
       <InputField user={user} setIsSubmit={setIsSubmit} setArchives={setArchives} />
     </div>

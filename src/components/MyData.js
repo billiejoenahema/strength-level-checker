@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ChartSelector from './ChartSelector'
 import CloseIcon from '@material-ui/icons/Close'
+import { db } from '../firebase'
+
 import {
   makeStyles,
   Fade,
@@ -34,22 +36,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const MyData = ({ archives, open, setOpen }) => {
+const MyData = ({ open, setOpen }) => {
   const classes = useStyles()
   const [chart, setChart] = useState('ベンチプレス')
+  const [data, setData] = useState([])
 
-  // 日付が古い順に並び替え
-  const sortedArchives = Array.from(archives).sort((a, b) => {
-    return a.created_at - b.created_at
-  })
-  sortedArchives.forEach((archive) => {
-    // m/dの形にフォーマットしたdateをarchivesに追加する
-    archive['date'] = formatChartDate(archive.created_at)
-  })
-  // 選択した種目で絞り込んでチャート用データを作成
-  const data = sortedArchives.filter((item) => {
-    return item.exercise === chart
-  })
+  useEffect(() => {
+    const getCollection = async () => {
+      let reportRef = await db.collection('report')
+      reportRef = reportRef.where('exercise', '==', chart)
+      reportRef
+        .orderBy('created_at', 'desc')
+        .onSnapshot((snapshot) => {
+          const dataList = snapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() }
+          })
+          // 日付が古い順に並べ替え
+          const sortedDataList = dataList.sort((a, b) => {
+            return a.created_at - b.created_at
+          })
+          sortedDataList.forEach((item) => {
+            // m/dの形にフォーマットしたdateを追加
+            item['date'] = formatChartDate(item.created_at)
+          })
+          setData(sortedDataList)
+        })
+    }
+    getCollection()
+  }, [chart])
 
   return (
     <Fade in={open}>
