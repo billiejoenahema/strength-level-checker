@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavigationBar = ({ userName, narrowDown, setNarrowDown, setOpen }) => {
+const NavigationBar = ({ userName, refine, setRefine, setOpen }) => {
   const classes = useStyles()
 
   return (
@@ -54,8 +54,8 @@ const NavigationBar = ({ userName, narrowDown, setNarrowDown, setOpen }) => {
                 className={classes.select}
                 labelId="exercise-select-label"
                 id="exercise-select"
-                value={narrowDown}
-                onChange={(e) => { setNarrowDown(e.target.value) }}
+                value={refine}
+                onChange={(e) => { setRefine(e.target.value) }}
               >
                 <MenuItem value="all">すべての種目</MenuItem>
                 <MenuItem value="ベンチプレス">ベンチプレス</MenuItem>
