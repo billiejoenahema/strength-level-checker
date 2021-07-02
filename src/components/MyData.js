@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ChartSelector from './ChartSelector'
+import Average from './Average'
 import CloseIcon from '@material-ui/icons/Close'
 import { db } from '../firebase'
 
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const MyData = ({ open, setOpen }) => {
   const classes = useStyles()
   const [chart, setChart] = useState('ベンチプレス')
-  const [data, setData] = useState([])
+  const [record, setRecord] = useState([])
 
   useEffect(() => {
     const getCollection = async () => {
@@ -59,7 +60,7 @@ const MyData = ({ open, setOpen }) => {
             // m/dの形にフォーマットしたdateを追加
             item['date'] = formatChartDate(item.created_at)
           })
-          setData(sortedDataList)
+          setRecord(sortedDataList)
         })
     }
     getCollection()
@@ -77,10 +78,11 @@ const MyData = ({ open, setOpen }) => {
           </DialogTitle>
           <DialogContent dividers>
             <ChartSelector chart={chart} setChart={setChart} />
+            <Average record={record} chart={chart} />
             <LineChart
               width={500}
               height={300}
-              data={data}
+              data={record}
               margin={{
                 top: 5,
                 right: 30,
