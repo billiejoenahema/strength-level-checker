@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Button } from '@material-ui/core'
 import NavigationBar from './NavigationBar'
 import InputField from './InputField'
 import MyData from './MyData'
@@ -21,6 +21,7 @@ const Main = () => {
   const [isSubmit, setIsSubmit] = useState(false)
   const [refine, setRefine] = useState('all')
   const [open, setOpen] = useState(false)
+  const [visible, setVisible] = useState(10)
 
   useEffect(() => {
     const getCollection = async () => {
@@ -29,7 +30,7 @@ const Main = () => {
         reportRef = reportRef.where('exercise', '==', refine)
       }
       reportRef
-        .limit(10)
+        .limit(visible)
         .orderBy('created_at', 'desc')
         .onSnapshot((snapshot) => {
           const dataList = snapshot.docs.map((doc) => {
@@ -44,13 +45,21 @@ const Main = () => {
       setIsSubmit(false)
     }
     getCollection()
-  }, [isSubmit, refine])
+  }, [isSubmit, refine, visible])
+
+  const loadMore = () => {
+    // もっと見るボタンを押したらさらに10件読み込む
+    setVisible(visible + 10)
+  }
 
   return (
     <div className={classes.root} >
       <NavigationBar userName={user.userName} refine={refine} setRefine={setRefine} setOpen={setOpen} />
       <MyData open={open} setOpen={setOpen} />
       <Archives archives={archives} setIsSubmit={setIsSubmit} setArchives={setArchives} />
+      {(archives.length >= visible) && (
+        <Button onClick={loadMore} size="large" >もっと見る</Button>
+      )}
       <InputField user={user} setIsSubmit={setIsSubmit} setArchives={setArchives} />
     </div>
   )
