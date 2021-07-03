@@ -18,7 +18,7 @@ const ReportSubmitButton = ({ report, setReport, user, setIsSubmit, setArchives 
             maxLift: report.maxLift,
             strengthLevel: report.strengthLevel
           })
-          setReport({
+          await setReport({
             ...report,
             lift: 0,
             reps: 0,
