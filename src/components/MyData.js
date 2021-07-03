@@ -45,8 +45,8 @@ const MyData = ({ open, setOpen }) => {
   useEffect(() => {
     const getCollection = async () => {
       let reportRef = await db.collection('report')
-      reportRef = reportRef.where('exercise', '==', chart)
-      reportRef
+      reportRef = await reportRef.where('exercise', '==', chart)
+      await reportRef
         .orderBy('created_at', 'desc')
         .onSnapshot((snapshot) => {
           const dataList = snapshot.docs.map((doc) => {
@@ -69,8 +69,8 @@ const MyData = ({ open, setOpen }) => {
   return (
     <Fade in={open}>
       <div>
-        <Dialog aria-labelledby="chart-dialog-title" open={open} onClose={() => { setOpen(false) }}>
-          <DialogTitle className={classes.root}>
+        <Dialog aria-labelledby="chart-dialog-title" open={open} onClose={() => { setOpen(false) }} maxWidth="lg">
+          <DialogTitle className={classes.root} >
             <Typography variant="h6">My Data</Typography>
             <IconButton aria-label="close" className={classes.closeButton} onClick={() => { setOpen(false) }}>
               <CloseIcon />
@@ -80,8 +80,8 @@ const MyData = ({ open, setOpen }) => {
             <ChartSelector chart={chart} setChart={setChart} />
             <Average records={records} chart={chart} />
             <LineChart
-              width={500}
-              height={300}
+              width={640}
+              height={400}
               data={records}
               margin={{
                 top: 5,
