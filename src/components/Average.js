@@ -6,11 +6,13 @@ const Average = ({ records, chart }) => {
     if (item.exercise === chart) { return item.maxLift }
     return
   })
-  const dataAverage = maxLifts.reduce((a, b) => a + b) / maxLifts.length
+  const Average = maxLifts.reduce((a, b) => a + b) / maxLifts.length
+  const base = 0.1
+  const roundedAverage = Math.round(Average * base) / base
 
   return (
     <div>
-      {`平均最大重量: ${dataAverage} kg`}
+      {`平均最大重量: ${roundedAverage} kg`}
     </div>
   )
 }
