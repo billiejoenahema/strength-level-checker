@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const MyData = ({ open, setOpen }) => {
   const classes = useStyles()
   const [chart, setChart] = useState('ベンチプレス')
-  const [record, setRecord] = useState([])
+  const [records, setRecords] = useState([])
 
   useEffect(() => {
     const getCollection = async () => {
@@ -60,7 +60,7 @@ const MyData = ({ open, setOpen }) => {
             // m/dの形にフォーマットしたdateを追加
             item['date'] = formatChartDate(item.created_at)
           })
-          setRecord(sortedDataList)
+          setRecords(sortedDataList)
         })
     }
     getCollection()
@@ -78,11 +78,11 @@ const MyData = ({ open, setOpen }) => {
           </DialogTitle>
           <DialogContent dividers>
             <ChartSelector chart={chart} setChart={setChart} />
-            <Average record={record} chart={chart} />
+            <Average records={records} chart={chart} />
             <LineChart
               width={500}
               height={300}
-              data={record}
+              data={records}
               margin={{
                 top: 5,
                 right: 30,
