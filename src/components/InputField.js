@@ -47,14 +47,17 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(user.userName)
 
+
   useEffect(() => {
-    if (report.lift === 0 || report.reps === 0) return
-    const calcMaxLiftAndStrengthLevel = async () => {
-      const resultLift = await getMaxLift(report)
-      const judgedLevel = await getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
+    const calcMaxLiftAndStrengthLevel = () => {
+      const resultLift = getMaxLift(report)
+      const judgedLevel = getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
       setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
     }
-    calcMaxLiftAndStrengthLevel()
+    if (report.lift !== 0 && report.reps !== 0) {
+      calcMaxLiftAndStrengthLevel()
+    }
+    return
   }, [report.lift, report.reps])
 
 
@@ -75,6 +78,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                 label="挙上重量"
                 id="standard-start-adornment"
                 margin="dense"
+                value={report.lift}
                 InputProps={{
                   endAdornment: <InputAdornment position="end">kg</InputAdornment>,
                 }}
