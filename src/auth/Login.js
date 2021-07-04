@@ -47,16 +47,16 @@ const Login = ({ history }) => {
   })
   const isInputted = email && values.password
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const handleChange = (prop) => (e) => {
+    setValues({ ...values, [prop]: e.target.value });
   }
 
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   }
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
   }
 
   // AuthContextからlogin関数を受け取る
