@@ -4,8 +4,7 @@ import HideOnScroll from './HideOnScroll'
 import ExerciseSelector from './ExerciseSelector'
 import RepsSelector from './RepsSelector'
 import ReportSubmitButton from './ReportSubmitButton'
-import { getStrengthLevel } from '../getStrengthLevel'
-import { getMaxLift } from '../getMaxLift'
+import { calcMaxLiftAndStrengthLevel } from '../calcMaxLiftAndStrengthLevel'
 import {
   makeStyles,
   Box,
@@ -48,13 +47,9 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   const avatarPath = gravatarPath(user.userName)
 
   useEffect(() => {
-    const calcMaxLiftAndStrengthLevel = () => {
-      const resultLift = getMaxLift(report)
-      const judgedLevel = getStrengthLevel(report.exercise, resultLift, user.bodyWeight)
-      setReport({ ...report, strengthLevel: judgedLevel, maxLift: resultLift })
-    }
     if (report.lift !== 0 && report.reps !== 0) {
-      calcMaxLiftAndStrengthLevel()
+      const MaxLiftAndStrengthLevel = calcMaxLiftAndStrengthLevel(report, user)
+      setReport(MaxLiftAndStrengthLevel)
     }
     return
   }, [report.lift, report.reps])
