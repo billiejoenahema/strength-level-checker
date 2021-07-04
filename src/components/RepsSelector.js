@@ -29,7 +29,6 @@ const RepsSelector = ({ report, setReport }) => {
         <MenuItem value={12}>12回</MenuItem>
       </Select>
     </FormControl>
-
   )
 }
 
