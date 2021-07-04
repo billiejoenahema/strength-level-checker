@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(3),
-      width: '20ch',
+      minWidth: 56,
       gridRow: 2,
     },
   },
@@ -47,7 +47,6 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
   const classes = useStyles()
   const avatarPath = gravatarPath(user.userName)
 
-
   useEffect(() => {
     const calcMaxLiftAndStrengthLevel = () => {
       const resultLift = getMaxLift(report)
@@ -60,65 +59,62 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
     return
   }, [report.lift, report.reps])
 
-
   return (
     <HideOnScroll>
-      <Box className={classes.stickToBottom} boxShadow={2} id="stick-bottom" >
-        <form className={classes.root} noValidate autoComplete="off">
-          <Grid container alignItems="center">
-            <Grid item xs={1}>
-              <Avatar src={avatarPath} className={classes.avatar} />
-              <Typography align="center" >{user.userName}</Typography>
+      <div className={classes.root}>
+        <Box className={classes.stickToBottom} boxShadow={2} id="stick-bottom" >
+          <form noValidate autoComplete="off">
+            <Grid container alignItems="center">
+              <Grid item xs={1}>
+                <Avatar src={avatarPath} className={classes.avatar} />
+                <Typography align="center" >{user.userName}</Typography>
+              </Grid>
+              <Grid item xs={10}>
+                <ExerciseSelector report={report} setReport={setReport} />
+                {/* input lift */}
+                <TextField
+                  id="lift-input-adornment"
+                  label="挙上重量"
+                  InputProps={{
+                    endAdornment: <InputAdornment position="end">kg</InputAdornment>,
+                  }}
+                  onFocus={(e) => { e.target.value = '' }}
+                  onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
+                />
+                {/* select reps */}
+                <RepsSelector report={report} setReport={setReport} />
+                {/* display max lift */}
+                <TextField
+                  id="max-lift-input"
+                  label="最大挙上重量"
+                  value={report.maxLift}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+                {/* display strength level */}
+                <TextField
+                  id="strength-level-input"
+                  label="称号"
+                  value={report.strengthLevel}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={1}>
+                <ReportSubmitButton
+                  report={report}
+                  setReport={setReport}
+                  user={user}
+                  setIsSubmit={setIsSubmit}
+                  setArchives={setArchives}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={10}>
-              <ExerciseSelector report={report} setReport={setReport} />
-              {/* input lift */}
-              <TextField
-                required
-                label="挙上重量"
-                id="standard-start-adornment"
-                margin="dense"
-                value={report.lift}
-                InputProps={{
-                  endAdornment: <InputAdornment position="end">kg</InputAdornment>,
-                }}
-                onChange={(e) => setReport({ ...report, lift: Number(e.target.value) })}
-              />
-              {/* select reps */}
-              <RepsSelector report={report} setReport={setReport} />
-              {/* display max lift */}
-              <TextField
-                id="max-lift-input"
-                label="最大挙上重量"
-                value={report.maxLift}
-                margin="dense"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              {/* display strength level */}
-              <TextField
-                id="strength-level-input"
-                label="称号"
-                value={report.strengthLevel}
-                margin="dense"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Grid>
-            <Grid item xs={1}>
-              <ReportSubmitButton
-                report={report}
-                setReport={setReport}
-                user={user}
-                setIsSubmit={setIsSubmit}
-                setArchives={setArchives}
-              />
-            </Grid>
-          </Grid>
-        </form>
-      </Box>
+          </form>
+        </Box>
+      </div>
     </HideOnScroll>
   )
 }

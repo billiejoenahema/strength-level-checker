@@ -1,9 +1,20 @@
 import React from 'react'
-import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+import { makeStyles, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core'
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(3),
+    minWidth: 80,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(3),
+  },
+}))
 
 const RepsSelector = ({ report, setReport }) => {
+  const classes = useStyles()
   return (
-    <FormControl margin="normal">
+    <FormControl className={classes.formControl}>
       <InputLabel shrink htmlFor="reps-native-label-placeholder">
         反復回数
       </InputLabel>
