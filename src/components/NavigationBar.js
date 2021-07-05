@@ -1,6 +1,6 @@
-import React from 'react'
-import { firebaseApp } from '../firebase.js'
+import React, { useState } from 'react'
 import HideOnScroll from './HideOnScroll'
+import LogoutConfirmDialog from './LogoutConfirmDialog'
 import MenuIcon from '@material-ui/icons/Menu'
 import {
   makeStyles,
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavigationBar = ({ userName, refine, setRefine, setOpen }) => {
   const classes = useStyles()
+  const [openLogoutDialog, setOpenLogoutDialog] = useState(false)
 
   return (
     <div className={classes.root}>
@@ -66,7 +67,8 @@ const NavigationBar = ({ userName, refine, setRefine, setOpen }) => {
               </Select>
             </FormControl>
             <Button color="inherit" onClick={() => { setOpen(true) }}>{userName}</Button>
-            <Button color="inherit" onClick={() => firebaseApp.auth().signOut()}>ログアウト</Button>
+            <Button color="inherit" onClick={() => { setOpenLogoutDialog(true) }}>ログアウト</Button>
+            <LogoutConfirmDialog open={openLogoutDialog} setOpen={setOpenLogoutDialog} />
           </Toolbar>
         </AppBar>
       </HideOnScroll>
