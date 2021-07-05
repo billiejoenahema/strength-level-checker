@@ -25,23 +25,27 @@ const Main = () => {
 
   useEffect(() => {
     const getCollection = async () => {
-      let reportRef = await db.collection('report')
-      if (refine !== 'all') {
-        reportRef = reportRef.where('exercise', '==', refine)
+      try {
+        let reportRef = await db.collection('report')
+        if (refine !== 'all') {
+          reportRef = reportRef.where('exercise', '==', refine)
+        }
+        reportRef
+          .limit(visible)
+          .orderBy('created_at', 'desc')
+          .onSnapshot((snapshot) => {
+            const dataList = snapshot.docs.map((doc) => {
+              return { id: doc.id, ...doc.data() }
+            })
+            // 日付が新しい順に並べ替え
+            const sortedDataList = dataList.sort((a, b) => {
+              return b.created_at - a.created_at
+            })
+            setArchives(sortedDataList)
+          })
+      } catch (error) {
+        alert(error)
       }
-      reportRef
-        .limit(visible)
-        .orderBy('created_at', 'desc')
-        .onSnapshot((snapshot) => {
-          const dataList = snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() }
-          })
-          // 日付が新しい順に並べ替え
-          const sortedDataList = dataList.sort((a, b) => {
-            return b.created_at - a.created_at
-          })
-          setArchives(sortedDataList)
-        })
       setIsSubmit(false)
     }
     getCollection()

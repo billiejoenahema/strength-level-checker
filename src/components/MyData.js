@@ -44,24 +44,28 @@ const MyData = ({ open, setOpen }) => {
 
   useEffect(() => {
     const getCollection = async () => {
-      let reportRef = await db.collection('report')
-      reportRef = await reportRef.where('exercise', '==', chart)
-      await reportRef
-        .orderBy('created_at', 'desc')
-        .onSnapshot((snapshot) => {
-          const dataList = snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() }
+      try {
+        let reportRef = await db.collection('report')
+        reportRef = await reportRef.where('exercise', '==', chart)
+        await reportRef
+          .orderBy('created_at', 'desc')
+          .onSnapshot((snapshot) => {
+            const dataList = snapshot.docs.map((doc) => {
+              return { id: doc.id, ...doc.data() }
+            })
+            // 日付が古い順に並べ替え
+            const sortedDataList = dataList.sort((a, b) => {
+              return a.created_at - b.created_at
+            })
+            sortedDataList.forEach((item) => {
+              // m/dの形にフォーマットしたdateを追加
+              item['date'] = formatChartDate(item.created_at)
+            })
+            setRecords(sortedDataList)
           })
-          // 日付が古い順に並べ替え
-          const sortedDataList = dataList.sort((a, b) => {
-            return a.created_at - b.created_at
-          })
-          sortedDataList.forEach((item) => {
-            // m/dの形にフォーマットしたdateを追加
-            item['date'] = formatChartDate(item.created_at)
-          })
-          setRecords(sortedDataList)
-        })
+      } catch (error) {
+        alert(error)
+      }
     }
     getCollection()
   }, [chart])
