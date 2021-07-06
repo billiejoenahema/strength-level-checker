@@ -10,3 +10,17 @@
   - maxLift
   - strengthLevel
   - created_at
+
+## Exercise
+- Bench Press
+- Squat
+- Dead Lift
+- Shoulder Press
+- Bent Over Row
+
+## Library
+- clsx
+- Rechart
+
+## CSS framework
+- Material-ui
