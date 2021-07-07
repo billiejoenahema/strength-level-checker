@@ -41,7 +41,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
     lift: 0,
     reps: 0,
     maxLift: 0,
-    strengthLevel: '?',
+    strengthLevel: '???',
   })
   const classes = useStyles()
   const avatarPath = gravatarPath(user.userName)
