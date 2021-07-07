@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     color: '#fff',
+    minWidth: 124,
   },
 }))
 
