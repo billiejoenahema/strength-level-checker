@@ -18,9 +18,10 @@ import {
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(3),
+      margin: theme.spacing(2),
       marginTop: 8,
       marginBottom: 8,
+      maxWidth: 128,
       minWidth: 56,
       gridRow: 2,
     },
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stickToBottom: {
     width: '100%',
+    paddingTop: 8,
     position: 'fixed',
     bottom: 0,
     background: '#c5cae9',
