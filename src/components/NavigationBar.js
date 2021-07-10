@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
   title: {
     flexGrow: 1,
   },
@@ -34,9 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     color: '#fff',
-    minWidth: 120,
+    minWidth: 128,
     fontSize: 12,
   },
+  button: {
+    marginLeft: 8,
+    fontSize: 12,
+  }
 }))
 
 const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
@@ -108,8 +109,8 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
               </Select>
             </FormControl>
             <Hidden smDown>
-              <Button color="inherit" onClick={openMyData}>{userName}</Button>
-              <Button color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
+              <Button className={classes.button} color="inherit" onClick={openMyData}>{userName}</Button>
+              <Button className={classes.button} color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
             </Hidden>
             <LogoutConfirmDialog open={logoutDialogOpen} setOpen={setLogoutDialogOpen} />
           </Toolbar>
