@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
   const classes = useStyles()
-  const [openLogoutDialog, setOpenLogoutDialog] = useState(false)
+  const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
   const handleClick = (event) => {
@@ -46,6 +46,11 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
 
   const openMyData = () => {
     setChartOpen(true)
+    setAnchorEl(null)
+  }
+
+  const openLogoutDialog = () => {
+    setLogoutDialogOpen(true)
     setAnchorEl(null)
   }
 
@@ -74,7 +79,8 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={openMyData}> {userName}</MenuItem>
+              <MenuItem onClick={openMyData}>{userName}</MenuItem>
+              <MenuItem onClick={openLogoutDialog}>ログアウト</MenuItem>
             </Menu>
             <Typography variant="h6" className={classes.title}>
               Strength Level Checker
@@ -98,8 +104,8 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
               </Select>
             </FormControl>
             <Button color="inherit" onClick={openMyData}>{userName}</Button>
-            <Button color="inherit" onClick={() => { setOpenLogoutDialog(true) }}>ログアウト</Button>
-            <LogoutConfirmDialog open={openLogoutDialog} setOpen={setOpenLogoutDialog} />
+            <Button color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
+            <LogoutConfirmDialog open={logoutDialogOpen} setOpen={setLogoutDialogOpen} />
           </Toolbar>
         </AppBar>
       </HideOnScroll>
