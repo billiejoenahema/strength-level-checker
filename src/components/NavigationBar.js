@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import HideOnScroll from './HideOnScroll'
 import LogoutConfirmDialog from './LogoutConfirmDialog'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -13,7 +14,9 @@ import {
   Menu,
   MenuItem,
   Button,
-  IconButton
+  IconButton,
+  Hidden,
+  withWidth
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
   select: {
     color: '#fff',
-    minWidth: 124,
+    minWidth: 120,
+    fontSize: 12,
   },
 }))
 
@@ -103,8 +107,10 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
                 <MenuItem value="ベントオーバーロウ">ベントオーバーロウ</MenuItem>
               </Select>
             </FormControl>
-            <Button color="inherit" onClick={openMyData}>{userName}</Button>
-            <Button color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
+            <Hidden xsDown>
+              <Button color="inherit" onClick={openMyData}>{userName}</Button>
+              <Button color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
+            </Hidden>
             <LogoutConfirmDialog open={logoutDialogOpen} setOpen={setLogoutDialogOpen} />
           </Toolbar>
         </AppBar>
@@ -112,5 +118,8 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
     </div>
   )
 }
+NavigationBar.propTypes = {
+  width: PropTypes.oneOf(['lg', 'md', 'sm', 'xl', 'xs']).isRequired,
+}
 
-export default NavigationBar
+export default withWidth()(NavigationBar)
