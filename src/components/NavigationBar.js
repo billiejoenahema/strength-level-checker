@@ -107,7 +107,7 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
                 <MenuItem value="ベントオーバーロウ">ベントオーバーロウ</MenuItem>
               </Select>
             </FormControl>
-            <Hidden xsDown>
+            <Hidden smDown>
               <Button color="inherit" onClick={openMyData}>{userName}</Button>
               <Button color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
             </Hidden>
