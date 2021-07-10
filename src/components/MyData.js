@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const MyData = ({ open, setOpen }) => {
+const MyData = ({ chartOpen, setChartOpen }) => {
   const classes = useStyles()
   const [chart, setChart] = useState('ベンチプレス')
   const [records, setRecords] = useState([])
@@ -71,12 +71,12 @@ const MyData = ({ open, setOpen }) => {
   }, [chart])
 
   return (
-    <Fade in={open}>
+    <Fade in={chartOpen}>
       <div>
-        <Dialog aria-labelledby="chart-dialog-title" open={open} onClose={() => { setOpen(false) }} maxWidth="lg">
+        <Dialog aria-labelledby="chart-dialog-title" open={chartOpen} onClose={() => { setChartOpen(false) }} maxWidth="lg">
           <DialogTitle className={classes.root} >
             <Typography variant="h6">My Data</Typography>
-            <IconButton aria-label="close" className={classes.closeButton} onClick={() => { setOpen(false) }}>
+            <IconButton aria-label="close" className={classes.closeButton} onClick={() => { setChartOpen(false) }}>
               <CloseIcon />
             </IconButton>
           </DialogTitle>

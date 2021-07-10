@@ -10,6 +10,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Menu,
   MenuItem,
   Button,
   IconButton
@@ -34,18 +35,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const NavigationBar = ({ userName, refine, setRefine, setOpen }) => {
+const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
   const classes = useStyles()
   const [openLogoutDialog, setOpenLogoutDialog] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null)
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const openMyData = () => {
+    setChartOpen(true)
+    setAnchorEl(null)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   return (
     <div className={classes.root}>
       <HideOnScroll>
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <IconButton edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              aria-controls="nav-menu"
+              aria-haspopup="true"
+              onClick={handleClick}>
               <MenuIcon />
             </IconButton>
+            <Menu
+              id="nav-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={openMyData}> {userName}</MenuItem>
+            </Menu>
             <Typography variant="h6" className={classes.title}>
               Strength Level Checker
             </Typography>
@@ -67,7 +97,7 @@ const NavigationBar = ({ userName, refine, setRefine, setOpen }) => {
                 <MenuItem value="ベントオーバーロウ">ベントオーバーロウ</MenuItem>
               </Select>
             </FormControl>
-            <Button color="inherit" onClick={() => { setOpen(true) }}>{userName}</Button>
+            <Button color="inherit" onClick={openMyData}>{userName}</Button>
             <Button color="inherit" onClick={() => { setOpenLogoutDialog(true) }}>ログアウト</Button>
             <LogoutConfirmDialog open={openLogoutDialog} setOpen={setOpenLogoutDialog} />
           </Toolbar>

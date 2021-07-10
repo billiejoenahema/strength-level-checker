@@ -20,7 +20,7 @@ const Main = () => {
   const [archives, setArchives] = useState([])
   const [isSubmit, setIsSubmit] = useState(false)
   const [refine, setRefine] = useState('all')
-  const [open, setOpen] = useState(false)
+  const [chartOpen, setChartOpen] = useState(false)
   const [visible, setVisible] = useState(10)
 
   useEffect(() => {
@@ -58,8 +58,8 @@ const Main = () => {
 
   return (
     <div className={classes.root} >
-      <NavigationBar userName={user.userName} refine={refine} setRefine={setRefine} setOpen={setOpen} />
-      <MyData open={open} setOpen={setOpen} />
+      <NavigationBar userName={user.userName} refine={refine} setRefine={setRefine} setChartOpen={setChartOpen} />
+      <MyData chartOpen={chartOpen} setChartOpen={setChartOpen} />
       <Archives archives={archives} setIsSubmit={setIsSubmit} setArchives={setArchives} />
       {(archives.length >= visible) && (
         <Button onClick={loadMore} size="large" >もっと見る</Button>
