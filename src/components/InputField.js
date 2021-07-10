@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
       margin: theme.spacing(3),
+      marginTop: 8,
+      marginBottom: 8,
       minWidth: 56,
       gridRow: 2,
     },
@@ -59,11 +61,11 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
       <Box className={classes.stickToBottom} boxShadow={2} id="stick-bottom" >
         <form className={classes.root} noValidate autoComplete="off">
           <Grid container alignItems="center">
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <Avatar src={avatarPath} className={classes.avatar} />
               <Typography align="center" >{user.userName}</Typography>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={8}>
               <ExerciseSelector report={report} setReport={setReport} />
               {/* input lift */}
               <TextField
@@ -96,7 +98,7 @@ const InputField = ({ user, setIsSubmit, setArchives }) => {
                 }}
               />
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <ReportSubmitButton
                 report={report}
                 setReport={setReport}
