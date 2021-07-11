@@ -16,7 +16,8 @@ import {
   Button,
   IconButton,
   Hidden,
-  withWidth
+  withWidth,
+  Tooltip,
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -109,7 +110,9 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
               </Select>
             </FormControl>
             <Hidden smDown>
-              <Button className={classes.button} color="inherit" onClick={openMyData}>{userName}</Button>
+              <Tooltip title="My Data を見る" placement="bottom">
+                <Button className={classes.button} color="inherit" onClick={openMyData}>{userName}</Button>
+              </Tooltip>
               <Button className={classes.button} color="inherit" onClick={openLogoutDialog}>ログアウト</Button>
             </Hidden>
             <LogoutConfirmDialog open={logoutDialogOpen} setOpen={setLogoutDialogOpen} />

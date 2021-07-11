@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DeleteConfirmDialog from './DeleteConfirmDialog'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, Tooltip } from '@material-ui/core'
 import { gravatarPath } from '../gravatar'
 import { formatDate } from '../formatDate'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -92,11 +92,18 @@ const ArchiveItem = ({ archive, setArchives, setIsSubmit }) => {
             </Typography>
           }
         />
-        <IconButton onClick={() => { setOpen(true) }}>
-          <DeleteIcon />
-        </IconButton>
+        <Tooltip title="記録を削除する" placement="left">
+          <IconButton onClick={() => { setOpen(true) }}>
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
         {/* delete button dialog */}
-        <DeleteConfirmDialog id={id} open={open} setOpen={setOpen} setArchives={setArchives} setIsSubmit={setIsSubmit} />
+        <DeleteConfirmDialog id={id}
+          open={open}
+          setOpen={setOpen}
+          setArchives={setArchives}
+          setIsSubmit={setIsSubmit}
+        />
       </ListItem>
     </div>
   )
