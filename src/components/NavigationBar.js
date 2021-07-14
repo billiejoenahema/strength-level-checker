@@ -46,7 +46,7 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null)
 
-  const handleClick = (event) => {
+  const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -75,7 +75,7 @@ const NavigationBar = ({ userName, refine, setRefine, setChartOpen }) => {
               aria-label="menu"
               aria-controls="nav-menu"
               aria-haspopup="true"
-              onClick={handleClick}>
+              onClick={handleMenu}>
               <MenuIcon />
             </IconButton>
             <Menu
