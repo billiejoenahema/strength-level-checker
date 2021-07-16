@@ -12,6 +12,8 @@ import {
   Input,
   InputAdornment,
   IconButton,
+  Box,
+  Link
 } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
@@ -102,7 +104,9 @@ const Login = ({ history }) => {
         </FormControl>
         <LoginButton isInputted={isInputted} />
       </form>
-      <a href="/signup">新規登録</a>
+      <Box className={classes.root}>
+        <Link href="/signup">新規登録</Link>
+      </Box>
     </div>
   )
 }

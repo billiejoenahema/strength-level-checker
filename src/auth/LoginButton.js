@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const LoginButton = ({ isInputted }) => {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.root}>
