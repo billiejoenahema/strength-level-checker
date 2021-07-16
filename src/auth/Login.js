@@ -102,6 +102,7 @@ const Login = ({ history }) => {
         </FormControl>
         <LoginButton isInputted={isInputted} />
       </form>
+      <a href="/signup">新規登録</a>
     </div>
   )
 }
