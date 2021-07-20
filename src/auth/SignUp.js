@@ -6,6 +6,9 @@ import { AuthContext } from './AuthProvider'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
 import {
   makeStyles,
+  CardHeader,
+  Card,
+  CardContent,
   TextField,
   FormControl,
   InputLabel,
@@ -31,10 +34,18 @@ const useStyles = makeStyles((theme) => ({
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
+  card: {
+    margin: 'auto',
+    marginTop: 80,
+  },
   textField: {
     width: '25ch',
     margin: '8px',
   },
+  button: {
+    marginTop: theme.spacing(2)
+  }
+
 }))
 
 const SignUp = ({ history }) => {
@@ -70,50 +81,55 @@ const SignUp = ({ history }) => {
 
   return (
     <div>
-      <h1>Sign up</h1>
       <form onSubmit={handleSubmit} className={classes.root}>
-        <TextField
-          id="email-input"
-          name="email"
-          label="Email"
-          type="email"
-          className={classes.textField}
-          margin="normal"
-          onChange={(e) => { setEmail(e.target.value) }}
-        />
-        <FormControl className={clsx(classes.margin, classes.textField)}>
-          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
-            name="password"
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={handleChange('password')}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
-        <Button variant="contained"
-          type="submit"
-          ariant="contained"
-          color="primary"
-          disabled={!isInputted}
-        >
-          Sign Up
-        </Button>
+        <Card className={classes.card}>
+          <CardContent>
+            <CardHeader title="新規登録" />
+            <TextField
+              id="email-input"
+              name="email"
+              label="Email"
+              type="email"
+              className={classes.textField}
+              margin="normal"
+              onChange={(e) => { setEmail(e.target.value) }}
+            />
+            <FormControl className={clsx(classes.margin, classes.textField)}>
+              <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+              <Input
+                id="standard-adornment-password"
+                name="password"
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                onChange={handleChange('password')}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <Button variant="contained"
+              className={classes.button}
+              type="submit"
+              ariant="contained"
+              color="primary"
+              disabled={!isInputted}
+            >
+              新規登録
+            </Button>
+            <Box className={classes.root}>
+              <Link href="/login">アカウントをお持ちの方はこちら</Link>
+            </Box>
+          </CardContent>
+        </Card>
       </form>
-      <Box className={classes.root}>
-        <Link href="/login">ログイン</Link>
-      </Box>
     </div>
   )
 }

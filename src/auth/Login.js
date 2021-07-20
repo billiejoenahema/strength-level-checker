@@ -70,7 +70,7 @@ const Login = ({ history }) => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>ログイン</h1>
       <form onSubmit={handleSubmit} className={classes.root}>
         <TextField
           id="email-input"
@@ -105,7 +105,7 @@ const Login = ({ history }) => {
         <LoginButton isInputted={isInputted} />
       </form>
       <Box className={classes.root}>
-        <Link href="/signup">新規登録</Link>
+        <Link href="/signup">アカウントをお持ちでない方はこちら</Link>
       </Box>
     </div>
   )

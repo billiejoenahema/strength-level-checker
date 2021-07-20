@@ -20,7 +20,7 @@ const LoginButton = ({ isInputted }) => {
         color="primary"
         disabled={!isInputted}
       >
-        Log in
+        ログイン
       </Button>
     </div>
   )
